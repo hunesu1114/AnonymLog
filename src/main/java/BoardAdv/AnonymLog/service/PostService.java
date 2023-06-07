@@ -1,6 +1,6 @@
 package BoardAdv.AnonymLog.service;
 
-import BoardAdv.AnonymLog.config.DtoToEntityMapper;
+import BoardAdv.AnonymLog.mapper.DtoToEntityMapper;
 import BoardAdv.AnonymLog.dto.PostDto;
 import BoardAdv.AnonymLog.entity.Post;
 import BoardAdv.AnonymLog.repository.PostRepository;
@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Transactional
@@ -20,6 +22,21 @@ public class PostService {
     public Post savePost(PostDto dto) {
         Post post = mapper.postDtoToEntity(dto);
         return postRepository.save(post);
+    }
+
+    public List<Post> findAll() {
+        return postRepository.findAll();
+    }
+
+    public Post updatePost(Long postId,PostDto dto) {
+        Post post = postRepository.findById(postId).orElseThrow();
+        post.update(dto);
+        post.setTimeString(mapper.getTimeString(LocalDateTime.now()));
+        return post;
+    }
+
+    public void deletePost(Long postId) {
+        postRepository.deleteById(postId);
     }
 
 
