@@ -15,6 +15,7 @@
         <h1>VisitLog</h1>
         <div class="d-flex justify-content-center" style="margin-top:100px">
             <button id="board-btn" class="custom-btn" style="width: 200px;">Leave a Message</button>
+<!--            <button id="board-btn-hover" class="hover-btn" style="width: 200px;">Leave a Message</button>-->
         </div>
 
         <div class="d-flex justify-content-center" >
@@ -40,12 +41,14 @@
         $('#board-btn').click(function(){
             window.location.replace('/board/list');
         })
-        //버튼 애니메이션 -> 안됨....
+
         // $(document).ready(function(){
-        //     $('.board-btn').hover(function(){
-        //         this.addClass('.hover-btn')
+        //     $('.custom-btn').hover(function(){
+        //         this.css("display", "none");
+        //         $('.hover-btn').css("display", "block")
         //     },function(){
-        //         this.removeClass('.hover-btn');
+        //         this.css("display", "block");
+        //         $('hover-btn').css("display", "none")
         //     })
         // })
 
