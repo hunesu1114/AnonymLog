@@ -34,23 +34,16 @@ button {
     height: 40px;
     border: 2px solid #f1c40f;
     font-family: 'Montserrat', sans-serif;
-    font-weight: 500;
+    font-weight: 600;
     background: transparent;
     color: #f1c40f;
-    /*display: block;*/
+    transition: all 0.2s;
 }
 
-/*.hover-btn{*/
-/*    width: 100px;*/
-/*    height: 40px;*/
-/*    border: 2px solid #f1c40f;*/
-/*    font-family: 'Montserrat', sans-serif;*/
-/*    font-weight: 500;*/
-/*    background:#f1c40f;*/
-/*    color:#2c3e50;*/
-/*    display: none;*/
-/*    transition: all 0.5s;*/
-/*}*/
+.custom-btn:hover{
+    background:#f1c40f;
+    color:#2c3e50;
+}
 
 .font-color{
     color: #f1c40f;
@@ -63,10 +56,4 @@ table{
 a{
     color: #f1c40f;
     text-decoration: none;
-}
-
-textarea, input{
-    background-color: #2c3e50;
-    color: #f1c40f;
-    border-color: #f1c40f;
 }
