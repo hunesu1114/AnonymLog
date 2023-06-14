@@ -10,17 +10,17 @@
 </head>
 <body>
 <div class="container">
-    <h1 style="margin-top:5%">VisitLog</h1>
+    <h1><a href="/home">VisitLog</a></h1>
     <form action="" method="post" th:object="${post}">
         <div class="d-flex justify-content-rigth font-color" style="margin-left:270px; margin-top:70px">
             <span>작성자 : </span>
-            <input type="text" th:field="*{writtenBy}">
+            <input type="text" th:field="${member.nickname}">
             <label style="margin-left:100px;">익명 </label>
             <input type="checkbox" id="check-box" th:field="*{isBlind}">
         </div>
         <div class="d-flex justify-content-rigth font-color" style="margin-left:270px; margin-top:10px">
             <span>비밀번호 : </span>
-            <input type="text" th:field="*{password}">
+            <input type="text" th:field="${member.password}">
         </div>
         <div class="d-flex justify-content-rigth font-color" style="margin-left:270px; margin-top:10px">
             <span>제목 : </span>
@@ -31,7 +31,11 @@
         </div>
         <div class="d-flex justify-content-center">
             <div>
-                <button id="board-btn" class="custom-btn" style="width: 200px;" type="submit">작성완료</button>
+                <button class="custom-btn" style="width: 200px;" type="submit">작성완료</button>
+            </div>
+            <div>
+                <button class="custom-btn" style="width: 200px;" type="button"
+                        onclick="location.href='/board/list'">리스트</button>
             </div>
         </div>
     </form>

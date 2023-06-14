@@ -1,6 +1,6 @@
 package BoardAdv.AnonymLog.service;
 
-import BoardAdv.AnonymLog.mapper.DtoToEntityMapper;
+import BoardAdv.AnonymLog.mapper.PostMapper;
 import BoardAdv.AnonymLog.dto.PostDto;
 import BoardAdv.AnonymLog.entity.Post;
 import BoardAdv.AnonymLog.repository.PostRepository;
@@ -17,7 +17,7 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final DtoToEntityMapper mapper;
+    private final PostMapper mapper;
 
     public Post savePost(PostDto dto) {
         Post post = mapper.postDtoToEntity(dto);
@@ -42,5 +42,8 @@ public class PostService {
         postRepository.deleteById(postId);
     }
 
+    public PostDto postEntityToDto(Post post) {
+        return mapper.postEntityToDto(post);
+    }
 
 }

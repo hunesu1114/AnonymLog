@@ -3,10 +3,7 @@ package BoardAdv.AnonymLog.entity;
 import BoardAdv.AnonymLog.dto.PostDto;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Builder
@@ -19,8 +16,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String writtenBy;
-    private String password;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="member_id")
+    private Member member;
     private String title;
     private String content;
     private Boolean isBlind;
@@ -34,11 +32,10 @@ public class Post {
      * @return
      */
     public Post update(PostDto dto) {
-        this.writtenBy = dto.getWrittenBy();
+        this.member = dto.getMember();
         this.title = dto.getPassword();
         this.content = dto.getContent();
         this.isBlind = dto.getIsBlind();
-        this.password = dto.getPassword();
         return this;
     }
 

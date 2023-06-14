@@ -1,7 +1,10 @@
 package BoardAdv.AnonymLog.controller;
 
+import BoardAdv.AnonymLog.dto.MemberDto;
 import BoardAdv.AnonymLog.dto.PostDto;
+import BoardAdv.AnonymLog.entity.Member;
 import BoardAdv.AnonymLog.entity.Post;
+import BoardAdv.AnonymLog.service.MemberService;
 import BoardAdv.AnonymLog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,7 @@ import java.util.List;
 @RequestMapping("/board")
 public class PostController {
 
+    private final MemberService memberService;
     private final PostService postService;
 
     @GetMapping("/list")
@@ -26,7 +30,7 @@ public class PostController {
     }
 
     @GetMapping("/post/{id}")
-    public String post(@PathVariable Long id,Model model) {
+    public String post(@PathVariable Long id, Model model) {
         Post post = postService.findById(id);
         model.addAttribute("post", post);
         return "board/post";
@@ -34,16 +38,44 @@ public class PostController {
 
     @GetMapping("/post/add")
     public String addPost(Model model) {
-        PostDto dto = new PostDto();
-        model.addAttribute("post", dto);
+        PostDto postDto = new PostDto();
+        MemberDto memberDto = new MemberDto();
+
+        model.addAttribute("post", postDto);
+        model.addAttribute("member", memberDto);
         return "board/addPost";
     }
 
     @PostMapping("/post/add")
-    public String addPost(@ModelAttribute("post") PostDto dto, RedirectAttributes redirectAttributes) {
-        Post post = postService.savePost(dto);
+    public String addPost(@ModelAttribute("post") PostDto postDto,@ModelAttribute("member") MemberDto memberDto, RedirectAttributes redirectAttributes) {
+        memberDto.setNickname(memberDto.getNickname());
+        memberDto.setPassword(memberDto.getPassword());
+        Member member = memberService.save(memberDto);
+        postDto.setMember(member);
+        Post post = postService.savePost(postDto);
         redirectAttributes.addAttribute("postId", post.getId());
 
         return "redirect:/board/post/{postId}";
+    }
+
+    @GetMapping("/post/edit/{id}")
+    public String editPost(@PathVariable Long id, Model model) {
+        Post post = postService.findById(id);
+        Member member = memberService.findById(post.getMember().getId());
+        PostDto postDto = postService.postEntityToDto(post);
+        MemberDto memberDto = memberService.memberEntityToDto(member);
+        model.addAttribute("post", postDto);
+        model.addAttribute("member", memberDto);
+        return "editPost";
+    }
+
+    @PostMapping("/post/edit/{id}")
+    public String editPost(@PathVariable Long id, @ModelAttribute("post") PostDto postDto, @ModelAttribute("member") MemberDto memberDto) {
+        memberDto.setNickname(memberDto.getNickname());
+        memberDto.setPassword(memberDto.getPassword());
+        Member member = memberService.save(memberDto);
+        postDto.setMember(member);
+        postService.updatePost(id, postDto);
+        return "redirect:/board/post/{id}";
     }
 }

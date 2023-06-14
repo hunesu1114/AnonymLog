@@ -1,5 +1,6 @@
 package BoardAdv.AnonymLog.dto;
 
+import BoardAdv.AnonymLog.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class PostDto {
 
-    private String writtenBy;
+    private Member member;
     private String password;
     private String title;
     private String content;

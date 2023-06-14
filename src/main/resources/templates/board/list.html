@@ -11,8 +11,7 @@
 <body>
 <button class="custom-btn"  style="margin-left:90%">Log in</button>
 <div class="container">
-    <h1>VisitLog</h1>
-
+    <h1><a href="/home">VisitLog</a></h1>
         <div class="row" style="margin-top:5%">
             <table class="table col-md-6 text-center" style="color: #f1c40f;">
                 <thead class="border-top" >
@@ -33,7 +32,7 @@
                     <td><a th:href="@{/board/post/{id} (id=${post.id})}"
                            th:text="${post.title}">제목</a></td>
 
-                    <td th:text="${post.writtenBy}">작성자</td>
+                    <td th:text="${post.member.nickname}">작성자</td>
 
                     <td th:text="${post.time}">작성일자</td>
 
@@ -43,7 +42,7 @@
         </div>
 
     <div class="d-flex justify-content-center">
-        <button id="board-btn" class="custom-btn" style="width: 200px;"
+        <button class="custom-btn" style="width: 200px;" type="button"
         onclick="location.href='/board/post/add'">글쓰기</button>
     </div>
 
