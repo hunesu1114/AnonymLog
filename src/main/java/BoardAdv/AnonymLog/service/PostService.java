@@ -28,6 +28,9 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    public Post findById(Long postId) {
+        return postRepository.findById(postId).orElseThrow();
+    }
     public Post updatePost(Long postId,PostDto dto) {
         Post post = postRepository.findById(postId).orElseThrow();
         post.update(dto);

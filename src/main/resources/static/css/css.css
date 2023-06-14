@@ -57,3 +57,25 @@ a{
     color: #f1c40f;
     text-decoration: none;
 }
+
+input{
+    border-style: solid;
+    margin-left: 5px;
+}
+input, textarea{
+    background-color: #2c3e50;
+    color: #f1c40f;
+    border-color: #f1c40f;
+}
+#title{
+    margin-left: 5px;
+}
+
+
+#check-box{
+    width: 20px;
+    height: 20px;
+}
+
+
+
