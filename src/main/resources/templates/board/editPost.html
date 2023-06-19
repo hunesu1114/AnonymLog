@@ -14,13 +14,13 @@
     <form action="" method="post" th:object="${post}">
         <div class="d-flex justify-content-rigth font-color" style="margin-left:270px; margin-top:70px">
             <span>작성자 : </span>
-            <input type="text" th:field="*{member.nickname}">
+            <input type="text" th:value="${member.nickname}">
             <label style="margin-left:100px;">익명 </label>
             <input type="checkbox" id="check-box" th:field="*{isBlind}">
         </div>
         <div class="d-flex justify-content-rigth font-color" style="margin-left:270px; margin-top:10px">
             <span>비밀번호 : </span>
-            <input type="text" th:field="*{member.password}">
+            <input type="text" th:value="${member.password}">
         </div>
         <div class="d-flex justify-content-rigth font-color" style="margin-left:270px; margin-top:10px">
             <span>제목 : </span>

@@ -9,7 +9,9 @@ import lombok.Setter;
 @Setter
 public class PostDto {
 
-    private Member member;
+    public PostDto() {
+    }
+
     private String password;
     private String title;
     private String content;

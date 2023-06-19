@@ -14,7 +14,6 @@ public class PostMapper {
 
     public Post postDtoToEntity(PostDto dto) {
         Post entity = Post.builder()
-                .member(dto.getMember())
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .time(getTimeString(LocalDateTime.now()))
@@ -24,7 +23,6 @@ public class PostMapper {
 
     public PostDto postEntityToDto(Post post) {
         PostDto dto = new PostDto();
-        dto.setMember(post.getMember());
         dto.setTitle(post.getTitle());
         dto.setContent(post.getContent());
         dto.setIsBlind(post.getIsBlind());

@@ -21,7 +21,6 @@ public class Member {
 
     private String nickname;
     private String password;
-
     private Boolean isHen;
 
     public Member setHen(Boolean isHen) {

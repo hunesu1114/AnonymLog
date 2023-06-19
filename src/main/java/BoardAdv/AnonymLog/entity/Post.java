@@ -32,7 +32,6 @@ public class Post {
      * @return
      */
     public Post update(PostDto dto) {
-        this.member = dto.getMember();
         this.title = dto.getPassword();
         this.content = dto.getContent();
         this.isBlind = dto.getIsBlind();
@@ -49,6 +48,11 @@ public class Post {
      */
     public Post setTimeString(String timeString) {
         this.time = timeString;
+        return this;
+    }
+
+    public Post setMember(Member member) {
+        this.member = member;
         return this;
     }
 

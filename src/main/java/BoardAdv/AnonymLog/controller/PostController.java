@@ -36,6 +36,26 @@ public class PostController {
         return "board/post";
     }
 
+    @PostMapping("/post/{id}")
+    public String post(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("id", id);
+        return "redirect:/board/post/editAuth/{id}";
+    }
+
+    @GetMapping("/post/editAuth/{id}")
+    public String editAuth(@PathVariable Long id, Model model) {
+        Post post = postService.findById(id);
+        model.addAttribute("title", post.getTitle());
+        model.addAttribute("password", null);
+        return "board/editPostAuth";
+    }
+
+    @PostMapping("/post/editAuth/{id}")
+    public String editAuth(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("id", id);
+        return "redirect:/board/post/edit/{id}";
+    }
+
     @GetMapping("/post/add")
     public String addPost(Model model) {
         PostDto postDto = new PostDto();
@@ -48,11 +68,8 @@ public class PostController {
 
     @PostMapping("/post/add")
     public String addPost(@ModelAttribute("post") PostDto postDto,@ModelAttribute("member") MemberDto memberDto, RedirectAttributes redirectAttributes) {
-        memberDto.setNickname(memberDto.getNickname());
-        memberDto.setPassword(memberDto.getPassword());
         Member member = memberService.save(memberDto);
-        postDto.setMember(member);
-        Post post = postService.savePost(postDto);
+        Post post = postService.savePost(postDto,member);
         redirectAttributes.addAttribute("postId", post.getId());
 
         return "redirect:/board/post/{postId}";
@@ -66,15 +83,16 @@ public class PostController {
         MemberDto memberDto = memberService.memberEntityToDto(member);
         model.addAttribute("post", postDto);
         model.addAttribute("member", memberDto);
-        return "editPost";
+        return "board/editPost";
     }
 
+    /**
+     * 아래 메서드 수행 시, 작성자 nickname,password, 게시물 title 세 항목 null
+     * **************************************************아 설마 내부호출 떄문?**************************************************
+     */
     @PostMapping("/post/edit/{id}")
     public String editPost(@PathVariable Long id, @ModelAttribute("post") PostDto postDto, @ModelAttribute("member") MemberDto memberDto) {
-        memberDto.setNickname(memberDto.getNickname());
-        memberDto.setPassword(memberDto.getPassword());
-        Member member = memberService.save(memberDto);
-        postDto.setMember(member);
+        memberService.updateMember(postService.findById(id).getMember().getId(), memberDto);
         postService.updatePost(id, postDto);
         return "redirect:/board/post/{id}";
     }

@@ -40,18 +40,16 @@ public class initData {
         Member member2 = memberService.save(memberDto2);
 
         PostDto testPost1 = new PostDto();
-        testPost1.setMember(member1);
         testPost1.setTitle("밥먹자");
         testPost1.setContent("나 정말 오목천 그 도넛카페 너무야");
         testPost1.setIsBlind(false);
 
         PostDto testPost2 = new PostDto();
-        testPost2.setMember(member2);
         testPost2.setTitle("롤하자");
         testPost2.setContent("나 칼바람 지금 너무야. 여친잘때 빨리 해야댐");
         testPost2.setIsBlind(false);
 
-        postService.savePost(testPost1);
-        postService.savePost(testPost2);
+        postService.savePost(testPost1,member1);
+        postService.savePost(testPost2,member2);
     }
 }

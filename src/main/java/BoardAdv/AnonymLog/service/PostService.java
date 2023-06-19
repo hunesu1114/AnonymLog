@@ -1,5 +1,6 @@
 package BoardAdv.AnonymLog.service;
 
+import BoardAdv.AnonymLog.entity.Member;
 import BoardAdv.AnonymLog.mapper.PostMapper;
 import BoardAdv.AnonymLog.dto.PostDto;
 import BoardAdv.AnonymLog.entity.Post;
@@ -19,8 +20,9 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostMapper mapper;
 
-    public Post savePost(PostDto dto) {
+    public Post savePost(PostDto dto, Member member) {
         Post post = mapper.postDtoToEntity(dto);
+        post.setMember(member);
         return postRepository.save(post);
     }
 
@@ -31,6 +33,7 @@ public class PostService {
     public Post findById(Long postId) {
         return postRepository.findById(postId).orElseThrow();
     }
+
     public Post updatePost(Long postId,PostDto dto) {
         Post post = postRepository.findById(postId).orElseThrow();
         post.update(dto);
