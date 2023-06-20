@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Builder
 @Getter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
@@ -16,9 +17,8 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_id")
-    private Member member;
+    private String writer;
+    private String password;
     private String title;
     private String content;
     private Boolean isBlind;
@@ -32,7 +32,9 @@ public class Post {
      * @return
      */
     public Post update(PostDto dto) {
-        this.title = dto.getPassword();
+        this.writer = dto.getWriter();
+        this.password = dto.getPassword();
+        this.title = dto.getTitle();
         this.content = dto.getContent();
         this.isBlind = dto.getIsBlind();
         return this;
@@ -51,9 +53,5 @@ public class Post {
         return this;
     }
 
-    public Post setMember(Member member) {
-        this.member = member;
-        return this;
-    }
 
 }

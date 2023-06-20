@@ -23,7 +23,6 @@ public class MemberMapper {
         MemberDto dto = new MemberDto();
         dto.setNickname(member.getNickname());
         dto.setPassword(member.getPassword());
-        dto.setIsHen(member.getIsHen());
         return dto;
     }
 }

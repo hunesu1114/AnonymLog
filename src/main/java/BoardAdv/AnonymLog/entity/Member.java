@@ -11,6 +11,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Member {
@@ -22,15 +23,4 @@ public class Member {
     private String nickname;
     private String password;
     private Boolean isHen;
-
-    public Member setHen(Boolean isHen) {
-        this.isHen = isHen;
-        return this;
-    }
-
-    public Member update(MemberDto dto) {
-        this.nickname = dto.getNickname();
-        this.password = dto.getPassword();
-        return this;
-    }
 }

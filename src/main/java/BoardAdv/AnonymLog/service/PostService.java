@@ -20,9 +20,8 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostMapper mapper;
 
-    public Post savePost(PostDto dto, Member member) {
+    public Post savePost(PostDto dto) {
         Post post = mapper.postDtoToEntity(dto);
-        post.setMember(member);
         return postRepository.save(post);
     }
 

@@ -32,7 +32,7 @@
                     <td><a th:href="@{/board/post/{id} (id=${post.id})}"
                            th:text="${post.title}">제목</a></td>
 
-                    <td th:text="${post.member.nickname}">작성자</td>
+                    <td th:text="${post.writer}">작성자</td>
 
                     <td th:text="${post.time}">작성일자</td>
 

@@ -22,17 +22,5 @@ public class MemberService {
         return member;
     }
 
-    public Member findById(Long id) {
-       return memberRepository.findById(id).orElseThrow();
-    }
 
-    public MemberDto memberEntityToDto(Member member) {
-        return memberMapper.memberEntityToDto(member);
-    }
-
-    public Member updateMember(Long memberId, MemberDto memberDto) {
-        Member member = memberRepository.findById(memberId).orElseThrow();
-        member.update(memberDto);
-        return member;
-    }
 }

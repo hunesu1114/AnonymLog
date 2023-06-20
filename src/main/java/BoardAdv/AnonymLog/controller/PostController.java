@@ -7,6 +7,7 @@ import BoardAdv.AnonymLog.entity.Post;
 import BoardAdv.AnonymLog.service.MemberService;
 import BoardAdv.AnonymLog.service.PostService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/board")
 public class PostController {
@@ -59,17 +61,14 @@ public class PostController {
     @GetMapping("/post/add")
     public String addPost(Model model) {
         PostDto postDto = new PostDto();
-        MemberDto memberDto = new MemberDto();
 
         model.addAttribute("post", postDto);
-        model.addAttribute("member", memberDto);
         return "board/addPost";
     }
 
     @PostMapping("/post/add")
-    public String addPost(@ModelAttribute("post") PostDto postDto,@ModelAttribute("member") MemberDto memberDto, RedirectAttributes redirectAttributes) {
-        Member member = memberService.save(memberDto);
-        Post post = postService.savePost(postDto,member);
+    public String addPost(@ModelAttribute("post") PostDto postDto, RedirectAttributes redirectAttributes) {
+        Post post = postService.savePost(postDto);
         redirectAttributes.addAttribute("postId", post.getId());
 
         return "redirect:/board/post/{postId}";
@@ -78,11 +77,9 @@ public class PostController {
     @GetMapping("/post/edit/{id}")
     public String editPost(@PathVariable Long id, Model model) {
         Post post = postService.findById(id);
-        Member member = memberService.findById(post.getMember().getId());
         PostDto postDto = postService.postEntityToDto(post);
-        MemberDto memberDto = memberService.memberEntityToDto(member);
+        model.addAttribute("postId", id);
         model.addAttribute("post", postDto);
-        model.addAttribute("member", memberDto);
         return "board/editPost";
     }
 
@@ -91,9 +88,16 @@ public class PostController {
      * **************************************************아 설마 내부호출 떄문?**************************************************
      */
     @PostMapping("/post/edit/{id}")
-    public String editPost(@PathVariable Long id, @ModelAttribute("post") PostDto postDto, @ModelAttribute("member") MemberDto memberDto) {
-        memberService.updateMember(postService.findById(id).getMember().getId(), memberDto);
-        postService.updatePost(id, postDto);
+    public String editPost(@PathVariable Long id, @ModelAttribute("post") PostDto postDto) {
+        log.info(postDto.toString());
+        Post post = postService.updatePost(id, postDto);
+        log.info(post.toString());
         return "redirect:/board/post/{id}";
+    }
+
+    @GetMapping("/post/delete/{id}")
+    public String delete(@PathVariable Long postId) {
+        postService.deletePost(postId);
+        return "list";
     }
 }
