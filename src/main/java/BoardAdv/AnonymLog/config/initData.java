@@ -46,7 +46,7 @@ public class initData {
         testPost2.setPassword("2");
         testPost2.setTitle("롤하자");
         testPost2.setContent("나 칼바람 지금 너무야. 여친잘때 빨리 해야댐");
-        testPost2.setIsBlind(false);
+        testPost2.setIsBlind(true);
 
         postService.savePost(testPost2);
     }

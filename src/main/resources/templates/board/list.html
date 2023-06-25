@@ -26,13 +26,21 @@
                 <tbody class="border">
                 <tr scope="row"  th:each="post : ${posts}">
 
-                    <td><a th:href="@{/board/post/{id} (id=${post.id})}"
+                    <td><a th:href="@{/board/post/readAuth/{id} (id=${post.id})}"
                            th:text="${post.id}">번호</a></td>
 
-                    <td><a th:href="@{/board/post/{id} (id=${post.id})}"
-                           th:text="${post.title}">제목</a></td>
+                    <td><a th:if="!${post.isBlind}"
+                           th:href="@{/board/post/{id} (id=${post.id})}"
+                           th:text="${post.title}">제목</a>
+                        <a th:if="${post.isBlind}"
+                               th:href="@{/board/post/readAuth/{id} (id=${post.id})}"
+                               th:text="|[비밀 게시글 입니다]|"
+                        >제목</a>
 
-                    <td th:text="${post.writer}">작성자</td>
+                    </td>
+
+                    <td th:if="!${post.isBlind}" th:text="${post.writer}">작성자</td>
+                    <td th:if="${post.isBlind}" th:text="|[Blind]|">작성자</td>
 
                     <td th:text="${post.time}">작성일자</td>
 

@@ -34,10 +34,11 @@
                 <button class="custom-btn" style="width: 200px;" type="submit">수정완료</button>
             </div>
             <div>
-                <button class="custom-btn" style="width: 200px;" id="delete-btn" type="button">삭제하기</button>
+                <button class="custom-btn" style="width: 200px;" id="delete-btn" type="button"
+                th:onclick="|location.href='@{/board/post/delete/{id} (id=${postId})}'|">삭제하기</button>
             </div>
             <div>
-                <button class="custom-btn" style="width: 200px;" type="submit"
+                <button class="custom-btn" style="width: 200px;" type="button"
                         onclick="location.href='/board/list'">리스트</button>
             </div>
         </div>
@@ -45,14 +46,6 @@
 
 
 </div>
-<script th:inline="javascript">
-    var postId = [[${postId}]];
-    console.log("삭제할 postId 번호 : " + postId);
-    //여기까지 잘 먹힘
-    //이 아래부터 안먹힘
-    $('#delete-btn').click(function(){
-        window.location.replace("/board/post/delete/" + postId);
-    })
-</script>
+
 </body>
 </html>
