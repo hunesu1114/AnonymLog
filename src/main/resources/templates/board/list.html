@@ -9,7 +9,10 @@
     <title>AnonymLog</title>
 </head>
 <body>
-<button class="custom-btn"  style="margin-left:90%">Log in</button>
+<button th:if="!${loginStatus}" class="custom-btn"  style="margin-left:90%" type="button"
+        onclick="location.href='/home/login'">Log in</button>
+<button th:if="${loginStatus}" class="custom-btn"  style="margin-left:90%" type="button"
+        onclick="location.href='/home/logout'">Log out</button>
 <div class="container">
     <h1><a href="/home">VisitLog</a></h1>
         <div class="row" style="margin-top:5%">

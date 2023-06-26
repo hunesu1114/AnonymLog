@@ -3,16 +3,12 @@ package BoardAdv.AnonymLog.config;
 import BoardAdv.AnonymLog.dto.MemberDto;
 import BoardAdv.AnonymLog.dto.PostDto;
 import BoardAdv.AnonymLog.entity.Member;
-import BoardAdv.AnonymLog.mapper.MemberMapper;
 import BoardAdv.AnonymLog.service.MemberService;
 import BoardAdv.AnonymLog.service.PostService;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-
-import javax.transaction.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -23,13 +19,7 @@ public class initData {
 
 
     @EventListener(ApplicationReadyEvent.class)
-    public void initData1() {
-
-        MemberDto hen = new MemberDto();
-        hen.setNickname("현수");
-        hen.setPassword("adminPw");
-        hen.setIsHen(true);
-        memberService.save(hen);
+    public void initPostData() {
 
         PostDto testPost1 = new PostDto();
         testPost1.setWriter("종민");
@@ -51,4 +41,23 @@ public class initData {
         postService.savePost(testPost2);
     }
 
+    @EventListener(ApplicationReadyEvent.class)
+    public void initTestMemberData() {
+        Member tester=Member.builder()
+                .isTester(true)
+                .nickname("TESTER")
+                .password("testaccount")
+                .isHen(false)
+                .build();
+
+        Member hen=Member.builder()
+                .isTester(true)
+                .nickname("HEN")
+                .password("rlagustn1!")
+                .isHen(true)
+                .build();
+
+        memberService.save(tester);
+        memberService.save(hen);
+    }
 }

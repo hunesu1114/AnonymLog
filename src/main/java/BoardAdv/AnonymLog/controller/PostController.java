@@ -2,8 +2,10 @@ package BoardAdv.AnonymLog.controller;
 
 import BoardAdv.AnonymLog.dto.AuthDto;
 import BoardAdv.AnonymLog.dto.PostDto;
+import BoardAdv.AnonymLog.entity.Member;
 import BoardAdv.AnonymLog.entity.Post;
 import BoardAdv.AnonymLog.service.PostService;
+import BoardAdv.AnonymLog.session.SessionConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
@@ -14,6 +16,8 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,9 +30,20 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/list")
-    public String list(Model model) {
+    public String list(Model model, HttpServletRequest request) {
         List<Post> posts = postService.findAll();
         model.addAttribute("posts", posts);
+        HttpSession session = request.getSession();
+        Member testerLogin = (Member) session.getAttribute(SessionConst.TESTER_LOGIN);
+        if (testerLogin == null) {
+            model.addAttribute("loginStatus", false);
+            log.info("loginStatus : {}",model.getAttribute("loginStatus"));
+            return "board/list";
+        }
+        if (testerLogin.getIsTester() == true) {
+            model.addAttribute("loginStatus", true);
+            log.info("loginStatus : {}",model.getAttribute("loginStatus"));
+        }
         return "board/list";
     }
 
