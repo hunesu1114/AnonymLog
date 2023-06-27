@@ -17,7 +17,7 @@ import java.util.Optional;
 @RequestMapping("/home")
 @RequiredArgsConstructor
 @Slf4j
-public class LoginController {
+public class SessionLoginController {
 
     private final MemberService memberService;
 
@@ -42,11 +42,6 @@ public class LoginController {
         }
 
         return "redirect:/home";
-    }
-
-    @GetMapping("/login/kakao")
-    public String kakaoLogin() {
-        return "login/kakaologin";
     }
 
     @GetMapping("/logout")

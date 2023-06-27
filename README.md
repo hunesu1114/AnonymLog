@@ -11,3 +11,4 @@ Project : AnonymLog
 
 ======DONE======
 - 세션 로그인,로그아웃 구현 완료(TESTER 계정)
+- TESTER 로그인 -> 비밀글 인증없이 조회
