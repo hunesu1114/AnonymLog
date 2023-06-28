@@ -10,17 +10,17 @@
 </head>
 <body>
 <div class="container">
-    <h1><a href="/home">VisitLog</a></h1>
+    <h1 style="margin-top:10%"><a href="/home">VisitLog</a></h1>
     <form action="" method="post" th:object="${post}">
-        <div class="d-flex justify-content-rigth font-color" style="margin-left:270px; margin-top:70px">
+        <div class="d-flex justify-content-center font-color" style="margin-top:70px;">
             <span>작성자 : </span>
             <input type="text" th:field="*{writer}" readonly>
-            <label style="margin-left:100px;">익명 </label>
+            <label style="margin-left:20px;">익명 </label>
             <input type="checkbox" id="check-box" th:field="*{isBlind}" readonly>
         </div>
-        <div class="d-flex justify-content-rigth font-color" style="margin-left:270px; margin-top:10px">
+        <div class="d-flex justify-content-center font-color" style="margin-top:10px">
             <span>제목 : </span>
-            <textarea id="title" cols="90" rows="1" th:field="*{title}" readonly></textarea>
+            <textarea id="title" cols="55" rows="1" th:field="*{title}" readonly></textarea>
         </div>
         <div class="d-flex justify-content-center" style="margin-top:20px">
             <textarea name="content" cols="100" rows="15" th:field="*{content}" readonly></textarea>

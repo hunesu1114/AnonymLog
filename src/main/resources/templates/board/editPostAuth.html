@@ -10,17 +10,16 @@
 </head>
 <body>
 <div class="container">
-    <h1><a href="/home">VisitLog</a></h1>
+    <h1 style="margin-top:10%"><a href="/home">VisitLog</a></h1>
     <form action="" method="post" th:object="${authDto}">
-        <div class="d-flex justify-content-rigth font-color" style="margin-left:300px; margin-top:10%">
+        <div class="d-flex justify-content-center font-color" style="margin-top:70px; margin-right:60px">
             <span>제목 : </span>
             <p id="title" cols="90" rows="1" th:text="*{title}" readonly>postTitle</p>
         </div>
-        <div class="d-flex justify-content-rigth font-color" style="margin-left:300px; margin-top:10px"
-             th:if="${trialFailure}">
+        <div class="d-flex justify-content-center font-color" style="margin-top:10px;" th:if="${trialFailure}">
             <p style="color: deeppink">비밀번호 불일치</p>
         </div>
-        <div class="d-flex justify-content-rigth font-color" style="margin-left:300px; margin-top:10px">
+        <div class="d-flex justify-content-center font-color" style="margin-top:10px">
             <span>비밀번호 확인 : </span>
             <input type="text" th:field="*{password}" placeholder="비밀번호 입력">
         </div>
