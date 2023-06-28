@@ -61,7 +61,7 @@ public class PostController {
 
         HttpSession session = request.getSession();
         Member sessionMember = (Member) session.getAttribute(SessionConst.TESTER_LOGIN);
-        if (sessionMember.getIsHen()) {
+        if (sessionMember!=null&&sessionMember.getIsHen()) {
             return "redirect:/board/post/edit/{id}";
         }
         return "redirect:/board/post/editAuth/{id}";

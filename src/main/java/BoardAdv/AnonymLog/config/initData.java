@@ -11,11 +11,11 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-@Component
-@RequiredArgsConstructor
+//@Component
+//@RequiredArgsConstructor
 public class initData {
 
-    private final MemberService memberService;
+    /*private final MemberService memberService;
     private final PostService postService;
 
     @Value("${hen.password}")
@@ -33,7 +33,7 @@ public class initData {
         testPost1.setPassword("1");
         testPost1.setTitle("밥먹자");
         testPost1.setContent("나 정말 오목천 그 도넛카페 너무야");
-        testPost1.setIsBlind(false);
+        testPost1.setIsBlind(true);
 
         postService.savePost(testPost1);
 
@@ -66,5 +66,5 @@ public class initData {
 
         memberService.save(tester);
         memberService.save(hen);
-    }
+    }*/
 }
