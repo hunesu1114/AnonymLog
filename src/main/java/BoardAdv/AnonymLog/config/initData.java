@@ -6,6 +6,7 @@ import BoardAdv.AnonymLog.entity.Member;
 import BoardAdv.AnonymLog.service.MemberService;
 import BoardAdv.AnonymLog.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,12 @@ public class initData {
 
     private final MemberService memberService;
     private final PostService postService;
+
+    @Value("${hen.password}")
+    private String henPassword;
+
+    @Value("${tester.password}")
+    private String testerPassword;
 
 
     @EventListener(ApplicationReadyEvent.class)
@@ -46,14 +53,14 @@ public class initData {
         Member tester=Member.builder()
                 .isTester(true)
                 .nickname("TESTER")
-                .password("testaccount")
+                .password(testerPassword)
                 .isHen(false)
                 .build();
 
         Member hen=Member.builder()
                 .isTester(true)
                 .nickname("HEN")
-                .password("rlagustn1!")
+                .password(henPassword)
                 .isHen(true)
                 .build();
 

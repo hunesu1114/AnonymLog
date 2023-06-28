@@ -56,8 +56,14 @@ public class PostController {
     }
 
     @PostMapping("/post/{id}")
-    public String post(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    public String post(@PathVariable Long id, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         redirectAttributes.addAttribute("id", id);
+
+        HttpSession session = request.getSession();
+        Member sessionMember = (Member) session.getAttribute(SessionConst.TESTER_LOGIN);
+        if (sessionMember.getIsHen()) {
+            return "redirect:/board/post/edit/{id}";
+        }
         return "redirect:/board/post/editAuth/{id}";
     }
 

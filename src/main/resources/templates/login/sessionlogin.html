@@ -9,22 +9,22 @@
 </head>
 <body>
 <div class="container">
-    <h1><a href="/home">VisitLog</a></h1>
+    <h1 style="margin-top:10%"><a href="/home">VisitLog</a></h1>
     <form action="" method="post" th:object="${sessionLoginDto}">
-        <div class="d-flex justify-content-right font-color" style="margin-left:300px; margin-top:10%">
+        <div class="d-flex justify-content-center font-color" style="margin-top:5%">
             <span>테스터 로그인 </span>
         </div>
 
-        <div class="d-flex justify-content-rigth font-color" style="margin-left:300px; margin-top:10px"
+        <div class="d-flex justify-content-center font-color" style="margin-top:10px"
              th:if="${trialFailure}">
             <p style="color: deeppink">로그인 실패</p>
         </div>
-        <div class="d-flex justify-content-rigth font-color" style="margin-left:300px; margin-top:10px">
+        <div class="d-flex justify-content-center font-color" style="margin-top:10px">
             <span>ID : </span>
             <input type="text" th:field="*{nickname}" placeholder="ID 입력">
         </div>
 
-        <div class="d-flex justify-content-rigth font-color" style="margin-left:300px; margin-top:10px">
+        <div class="d-flex justify-content-center font-color" style="margin-top:10px">
             <span>PW : </span>
             <input type="password" th:field="*{password}" placeholder="비밀번호 입력">
         </div>
