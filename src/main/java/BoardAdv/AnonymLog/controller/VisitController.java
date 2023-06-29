@@ -10,4 +10,9 @@ public class VisitController {
     public String toHome() {
         return "redirect:/home";
     }
+
+    @GetMapping("/board/list")
+    public String toList() {
+        return "redirect:/board/list/1";
+    }
 }

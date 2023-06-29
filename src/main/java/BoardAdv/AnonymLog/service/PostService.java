@@ -6,6 +6,7 @@ import BoardAdv.AnonymLog.dto.PostDto;
 import BoardAdv.AnonymLog.entity.Post;
 import BoardAdv.AnonymLog.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -28,6 +29,15 @@ public class PostService {
     public List<Post> findAll() {
         return postRepository.findAll();
     }
+
+    public List<Post> findAllByPage(Pageable pageable) {
+        return postRepository.findAll(pageable).getContent();
+    }
+
+    public int getPostCnt() {
+        return postRepository.findAll().size();
+    }
+
 
     public Post findById(Long postId) {
         return postRepository.findById(postId).orElseThrow();

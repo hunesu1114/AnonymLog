@@ -1,6 +1,7 @@
 package BoardAdv.AnonymLog.entity;
 
 import BoardAdv.AnonymLog.dto.PostDto;
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;

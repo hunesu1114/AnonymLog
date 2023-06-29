@@ -40,6 +40,11 @@ button {
     transition: all 0.2s;
 }
 
+.paging-btn{
+    width:50px;
+    margin: 0;
+}
+
 .custom-btn:hover{
     background:#f1c40f;
     color:#2c3e50;

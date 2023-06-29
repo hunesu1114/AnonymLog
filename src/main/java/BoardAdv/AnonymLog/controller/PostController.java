@@ -4,15 +4,21 @@ import BoardAdv.AnonymLog.dto.AuthDto;
 import BoardAdv.AnonymLog.dto.PostDto;
 import BoardAdv.AnonymLog.entity.Member;
 import BoardAdv.AnonymLog.entity.Post;
+import BoardAdv.AnonymLog.pagination.Pagination;
+import BoardAdv.AnonymLog.pagination.PagingConst;
 import BoardAdv.AnonymLog.service.PostService;
 import BoardAdv.AnonymLog.session.SessionConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,10 +35,16 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/list")
-    public String list(Model model, HttpServletRequest request) {
-        List<Post> posts = postService.findAll();
+    @GetMapping("/list/{page}")
+    public String list(@PathVariable int page, Model model, HttpServletRequest request) {
+        Pageable pageable = PageRequest.of(page - 1, PagingConst.POST_CNT_PER_PAGE, Sort.by("id").descending());
+        List<Post> posts = postService.findAllByPage(pageable);
+        Pagination pagination = new Pagination(postService.getPostCnt(),page);
+
         model.addAttribute("posts", posts);
+        model.addAttribute("pagination", pagination);
+        model.addAttribute("pagesInCurrentBlock", pagination.pagesInCurrentBlock());
+
         HttpSession session = request.getSession();
         Member testerLogin = (Member) session.getAttribute(SessionConst.TESTER_LOGIN);
         if (testerLogin == null) {
@@ -46,6 +58,7 @@ public class PostController {
         }
         return "board/list";
     }
+
 
     @GetMapping("/post/{id}")
     public String post(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
@@ -124,11 +137,16 @@ public class PostController {
     }
 
     @PostMapping("/post/add")
-    public String addPost(@ModelAttribute("post") PostDto postDto, RedirectAttributes redirectAttributes) {
+    public String addPost(@Validated @ModelAttribute("post") PostDto postDto, BindingResult bindingResult,
+                          RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            return "board/addPost";
+        }
         Post post = postService.savePost(postDto);
         redirectAttributes.addAttribute("postId", post.getId());
 
-        return "redirect:/board/list";
+        return "redirect:/board/list/1";
     }
 
     @GetMapping("/post/edit/{id}")
@@ -141,7 +159,13 @@ public class PostController {
     }
 
     @PostMapping("/post/edit/{id}")
-    public String editPost(@PathVariable Long id, @ModelAttribute("post") PostDto postDto) {
+    public String editPost(@PathVariable Long id, @Validated @ModelAttribute("post") PostDto postDto,
+                           BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "board/editPost";
+        }
+
         log.info(postDto.toString());
         Post post = postService.updatePost(id, postDto);
         log.info(post.toString());
@@ -149,8 +173,10 @@ public class PostController {
     }
 
     @GetMapping("/post/delete/{id}")
-    public String delete(@PathVariable Long id) {
+    public String deletePost(@PathVariable("id") Long id) {
+        log.info("==============deletePost 진입");
         postService.deletePost(id);
+        log.info("==============deletePost 메서드 완료");
         return "redirect:/board/list";
     }
 }
