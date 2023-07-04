@@ -5,6 +5,7 @@ Project : AnonymLog
 ======TODO======
 - 코드 설명 추가
 - 로그 추적기 구현
+- rest api로 구현 
 
 ======DONE======
 - 세션 로그인,로그아웃 구현 완료(TESTER 계정)
