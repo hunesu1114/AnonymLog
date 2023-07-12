@@ -6,6 +6,7 @@ import BoardAdv.AnonymLog.entity.Member;
 import BoardAdv.AnonymLog.entity.Post;
 import BoardAdv.AnonymLog.pagination.Pagination;
 import BoardAdv.AnonymLog.pagination.PagingConst;
+import BoardAdv.AnonymLog.service.MemberService;
 import BoardAdv.AnonymLog.service.PostService;
 import BoardAdv.AnonymLog.session.SessionConst;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,11 @@ import java.util.Optional;
 public class PostController {
 
     private final PostService postService;
+    private final MemberService memberService;
 
+    /**
+     * 페이징 처리 된 '/board/list/{page}' : GET
+     */
     @GetMapping("/list/{page}")
     public String list(@PathVariable int page, Model model, HttpServletRequest request) {
         Pageable pageable = PageRequest.of(page - 1, PagingConst.POST_CNT_PER_PAGE, Sort.by("id").descending());
@@ -45,17 +50,8 @@ public class PostController {
         model.addAttribute("pagination", pagination);
         model.addAttribute("pagesInCurrentBlock", pagination.pagesInCurrentBlock());
 
-        HttpSession session = request.getSession();
-        Member testerLogin = (Member) session.getAttribute(SessionConst.TESTER_LOGIN);
-        if (testerLogin == null) {
-            model.addAttribute("loginStatus", false);
-            log.info("loginStatus : {}",model.getAttribute("loginStatus"));
-            return "board/list";
-        }
-        if (testerLogin.getIsTester() == true) {
-            model.addAttribute("loginStatus", true);
-            log.info("loginStatus : {}",model.getAttribute("loginStatus"));
-        }
+        memberService.addLoginStatusAttribute(request, model);
+
         return "board/list";
     }
 
@@ -63,7 +59,7 @@ public class PostController {
     @GetMapping("/post/{id}")
     public String post(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
         Post post = postService.findById(id);
-        redirectAttributes.addAttribute("id", id);
+//        redirectAttributes.addAttribute("id", id);
         model.addAttribute("post", post);
         return "board/post";
     }
@@ -72,8 +68,11 @@ public class PostController {
     public String post(@PathVariable Long id, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         redirectAttributes.addAttribute("id", id);
 
-        HttpSession session = request.getSession();
-        Member sessionMember = (Member) session.getAttribute(SessionConst.TESTER_LOGIN);
+        /**
+         * getTesterFromSession 메서드로 Tester Member를 가져옴
+         * Tester && Hen 인 경우 인증 없이 edit 가능
+         */
+        Member sessionMember = memberService.getTesterFromSession(request);
         if (sessionMember!=null&&sessionMember.getIsHen()) {
             return "redirect:/board/post/edit/{id}";
         }
@@ -154,6 +153,7 @@ public class PostController {
         Post post = postService.findById(id);
         PostDto postDto = postService.postEntityToDto(post);
         model.addAttribute("postId", id);
+        log.info("postId = {}", id);
         model.addAttribute("post", postDto);
         return "board/editPost";
     }

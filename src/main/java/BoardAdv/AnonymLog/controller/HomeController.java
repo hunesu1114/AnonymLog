@@ -1,7 +1,9 @@
 package BoardAdv.AnonymLog.controller;
 
 import BoardAdv.AnonymLog.entity.Member;
+import BoardAdv.AnonymLog.service.MemberService;
 import BoardAdv.AnonymLog.session.SessionConst;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,25 +16,24 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/home")
+@RequiredArgsConstructor
 @Slf4j
 public class HomeController {
 
+    private final MemberService memberService;
+
+    /**
+     * 로그인 시, session에 담긴 Member의 isTester가 true인 경우(tester또는 HEN) Model에 loginStatus true 담아서 전달
+     */
     @GetMapping("")
     public String home(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession();
-        Member testerLogin = (Member) session.getAttribute(SessionConst.TESTER_LOGIN);
-        if (testerLogin == null) {
-            model.addAttribute("loginStatus", false);
-            log.info("loginStatus : {}",model.getAttribute("loginStatus"));
-            return "home";
-        }
-        if (testerLogin.getIsTester() == true) {
-            model.addAttribute("loginStatus", true);
-            log.info("loginStatus : {}",model.getAttribute("loginStatus"));
-        }
+        memberService.addLoginStatusAttribute(request, model);
         return "home";
     }
 
+    /**
+     * 로그인 화면으로
+     */
     @GetMapping("/login")
     public String login() {
         return "login/login";
