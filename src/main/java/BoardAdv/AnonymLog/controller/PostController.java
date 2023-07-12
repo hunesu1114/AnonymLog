@@ -174,9 +174,7 @@ public class PostController {
 
     @GetMapping("/post/delete/{id}")
     public String deletePost(@PathVariable("id") Long id) {
-        log.info("==============deletePost 진입");
         postService.deletePost(id);
-        log.info("==============deletePost 메서드 완료");
         return "redirect:/board/list";
     }
 }

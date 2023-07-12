@@ -14,8 +14,8 @@ Project : AnonymLog
 - HEN 로그인 -> 비밀글 인증없이 조회, 모든 게시물 수정가능
 
 ======BUG FIX(BackLog)======
-- validation 에러메세지 항상 떠있음
 
 ======BUG FIX(Done)======
 - 게시글 제목, 작성자, 비번 안치고 익명으로 남겼을 때, '비밀게시글 입니다' 안뜸
 - post add 및 edit 시 validation 추가
+- validation 에러메세지 항상 떠있음
