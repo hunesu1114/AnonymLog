@@ -1,9 +1,13 @@
 package BoardAdv.AnonymLog.service;
 
+import BoardAdv.AnonymLog.dto.CommentDto;
+import BoardAdv.AnonymLog.entity.Comment;
 import BoardAdv.AnonymLog.entity.Member;
 import BoardAdv.AnonymLog.mapper.PostMapper;
 import BoardAdv.AnonymLog.dto.PostDto;
 import BoardAdv.AnonymLog.entity.Post;
+import BoardAdv.AnonymLog.repository.CommentRepository;
+import BoardAdv.AnonymLog.repository.MemberRepository;
 import BoardAdv.AnonymLog.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -19,11 +23,32 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final MemberRepository memberRepository;
+    private final CommentRepository commentRepository;
+
     private final PostMapper mapper;
 
     public Post savePost(PostDto dto) {
         Post post = mapper.postDtoToEntity(dto);
         return postRepository.save(post);
+    }
+
+    public Comment saveComment(CommentDto dto) {
+        Comment comment = Comment.builder()
+                .member(dto.getMember())
+                .post(dto.getPost())
+                .content(dto.getContent())
+                .build();
+        return commentRepository.save(comment);
+    }
+
+    public void updateComment(Long commentId, CommentDto dto) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow();
+        comment.updateComment(dto);
+    }
+
+    public void deleteComment(Long commentId) {
+        commentRepository.deleteById(commentId);
     }
 
     public List<Post> findAll() {

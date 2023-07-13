@@ -5,6 +5,8 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
@@ -24,6 +26,9 @@ public class Post {
     private String content;
     private Boolean isBlind;
     private String time;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments = new ArrayList<>();
 
     /**
      * setter 사용하지 않고 update 전용 메서드 작성

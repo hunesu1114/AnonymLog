@@ -1,6 +1,7 @@
 package BoardAdv.AnonymLog.controller;
 
 import BoardAdv.AnonymLog.dto.AuthDto;
+import BoardAdv.AnonymLog.dto.CommentDto;
 import BoardAdv.AnonymLog.dto.PostDto;
 import BoardAdv.AnonymLog.entity.Member;
 import BoardAdv.AnonymLog.entity.Post;
@@ -57,26 +58,27 @@ public class PostController {
 
 
     @GetMapping("/post/{id}")
-    public String post(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
+    public String post(@PathVariable Long id, Model model,HttpServletRequest request) {
         Post post = postService.findById(id);
-//        redirectAttributes.addAttribute("id", id);
         model.addAttribute("post", post);
+        Member sessionMember = memberService.getTesterFromSession(request);
+        if (sessionMember!=null&&sessionMember.getIsHen()) {
+            memberService.addLoginStatusAttribute(request, model);
+            CommentDto commentDto = new CommentDto();
+            model.addAttribute("commentDto", commentDto);
+        }
         return "board/post";
     }
 
     @PostMapping("/post/{id}")
-    public String post(@PathVariable Long id, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+    public String post(@PathVariable Long id, @ModelAttribute CommentDto commentDto, RedirectAttributes redirectAttributes,HttpServletRequest request) {
         redirectAttributes.addAttribute("id", id);
-
-        /**
-         * getTesterFromSession 메서드로 Tester Member를 가져옴
-         * Tester && Hen 인 경우 인증 없이 edit 가능
-         */
+        log.info("commentDto.content : {}", commentDto.getContent());
         Member sessionMember = memberService.getTesterFromSession(request);
-        if (sessionMember!=null&&sessionMember.getIsHen()) {
-            return "redirect:/board/post/edit/{id}";
-        }
-        return "redirect:/board/post/editAuth/{id}";
+        commentDto.setMember(sessionMember);
+        commentDto.setPost(postService.findById(id));
+        postService.saveComment(commentDto);
+        return "redirect:/board/post/{id}";
     }
 
     @GetMapping("/post/readAuth/{id}")
@@ -104,7 +106,18 @@ public class PostController {
 
 
     @GetMapping("/post/editAuth/{id}")
-    public String editAuth(@PathVariable Long id, @RequestParam(required = false) Optional<String> trial, Model model) {
+    public String editAuth(@PathVariable Long id, @RequestParam(required = false) Optional<String> trial
+            , Model model,HttpServletRequest request, RedirectAttributes redirectAttributes) {
+
+        /**
+         * getTesterFromSession 메서드로 Tester Member를 가져옴
+         * Tester && Hen 인 경우 인증 없이 edit 가능
+         */
+        Member sessionMember = memberService.getTesterFromSession(request);
+        if (sessionMember!=null&&sessionMember.getIsHen()) {
+            redirectAttributes.addAttribute("postId", id);
+            return "redirect:/board/post/edit/{postId}";
+        }
 
         Post post = postService.findById(id);
         if (trial.orElse("none").equals("fail")) {
