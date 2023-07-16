@@ -23,13 +23,11 @@ public class SessionLoginController {
 
     @GetMapping("/login/session")
     public String sessionLogin(Model model, @RequestParam(required = false) Optional<String> trial) {
-        log.info("=============================");
         if (trial.orElse("none").equals("fail")) {
             model.addAttribute("trialFailure", true);
         }
         SessionLoginDto sessionLoginDto = new SessionLoginDto();
         model.addAttribute("sessionLoginDto", sessionLoginDto);
-        log.info("=============================");
         return "login/sessionlogin";
     }
 
