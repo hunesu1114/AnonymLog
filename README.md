@@ -26,7 +26,7 @@ Project : AnonymLog
 
 ======BUG FIX(BackLog)======
 
--
+- 
 =========================
 
 ======BUG FIX(Done)=========
@@ -34,6 +34,7 @@ Project : AnonymLog
 - post add 및 edit 시 validation 추가
 - validation 에러메세지 항상 떠있음
 - 로그 추적기 구현중, 로그 안찍히는 이슈 수정함 (@Component 추가를 안했음)
+- 어떤 로직을 실행하더라도 4번씩 실행되는 버그(AOP 에서 joinpoint.proceed 두번 써서 생긴 오류) -> try catch finally문으로 잡음
 - 
 
 ===========================

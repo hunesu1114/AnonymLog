@@ -5,9 +5,12 @@ import BoardAdv.AnonymLog.logtracer.logtrace.LogTrace;
 import BoardAdv.AnonymLog.logtracer.logtrace.LogTraceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -20,15 +23,16 @@ public class LogAspect {
     @Around("BoardAdv.AnonymLog.aop.pointcuts.LogPointcut.unionPointcut()")
     public Object writeLog(ProceedingJoinPoint joinPoint) throws Throwable {
         TraceStatus status = logTrace.begin(joinPoint.getSignature().getName());
-        try{
-            joinPoint.proceed();
-            logTrace.end(status);
+        try {
             return joinPoint.proceed();
-        } catch (Exception e){
+        } catch (Exception e) {
             logTrace.exception(status,e);
             throw e;
+        } finally{
+            logTrace.end(status);
         }
-
     }
+
+
 
 }
