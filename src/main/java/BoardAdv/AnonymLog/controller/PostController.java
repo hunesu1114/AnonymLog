@@ -57,6 +57,9 @@ public class PostController {
     }
 
 
+    /**
+     * 개별 게시글 조회
+     */
     @GetMapping("/post/{id}")
     public String post(@PathVariable Long id, Model model,HttpServletRequest request) {
         Post post = postService.findById(id);
@@ -70,6 +73,9 @@ public class PostController {
         return "board/post";
     }
 
+    /**
+     * Comment 작성 POST
+     */
     @PostMapping("/post/{id}")
     public String post(@PathVariable Long id, @ModelAttribute CommentDto commentDto, RedirectAttributes redirectAttributes,HttpServletRequest request) {
         redirectAttributes.addAttribute("id", id);
@@ -81,6 +87,9 @@ public class PostController {
         return "redirect:/board/post/{id}";
     }
 
+    /**
+     * 익명 게시글 조회 인증
+     */
     @GetMapping("/post/readAuth/{id}")
     public String readAuth(@PathVariable Long id, @RequestParam(required = false) Optional<String> trial, Model model) {
         log.info("trial : {}", trial);
@@ -93,6 +102,9 @@ public class PostController {
         return "board/readPostAuth";
     }
 
+    /**
+     * 익명 게시글 조회 Auth시 비밀번호 검증
+     */
     @PostMapping("/post/readAuth/{id}")
     public String readAuth(@PathVariable Long id, @ModelAttribute AuthDto authDto, RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("id", id);
@@ -105,6 +117,9 @@ public class PostController {
     }
 
 
+    /**
+     * 게시글 수정시 인증 (HEN인 경우 인증 X)
+     */
     @GetMapping("/post/editAuth/{id}")
     public String editAuth(@PathVariable Long id, @RequestParam(required = false) Optional<String> trial
             , Model model,HttpServletRequest request, RedirectAttributes redirectAttributes) {
@@ -130,6 +145,9 @@ public class PostController {
         return "board/editPostAuth";
     }
 
+    /**
+     * 게시글 수정시 Auth 비밀번호 인증
+     */
     @PostMapping("/post/editAuth/{id}")
     public String editAuth(@PathVariable Long id, @ModelAttribute AuthDto authDto, RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("id", id);
@@ -141,6 +159,9 @@ public class PostController {
         return "redirect:/board/post/edit/{id}";
     }
 
+    /**
+     * 게시글 작성 -> DTO 모델에 전달
+     */
     @GetMapping("/post/add")
     public String addPost(Model model) {
         PostDto postDto = new PostDto();
@@ -148,6 +169,9 @@ public class PostController {
         return "board/addPost";
     }
 
+    /**
+     * 게시글 작성시 -> save
+     */
     @PostMapping("/post/add")
     public String addPost(@Validated @ModelAttribute("post") PostDto postDto, BindingResult bindingResult,
                           RedirectAttributes redirectAttributes) {
@@ -161,6 +185,9 @@ public class PostController {
         return "redirect:/board/list/1";
     }
 
+    /**
+     * 게시글 수정 DTO 전달
+     */
     @GetMapping("/post/edit/{id}")
     public String editPost(@PathVariable Long id, Model model) {
         Post post = postService.findById(id);
@@ -171,6 +198,9 @@ public class PostController {
         return "board/editPost";
     }
 
+    /**
+     * 게시글 수정
+     */
     @PostMapping("/post/edit/{id}")
     public String editPost(@PathVariable Long id, @Validated @ModelAttribute("post") PostDto postDto,
                            BindingResult bindingResult) {
@@ -185,6 +215,9 @@ public class PostController {
         return "redirect:/board/post/{id}";
     }
 
+    /**
+     * 게시글 삭제
+     */
     @GetMapping("/post/delete/{id}")
     public String deletePost(@PathVariable("id") Long id) {
         postService.deletePost(id);
