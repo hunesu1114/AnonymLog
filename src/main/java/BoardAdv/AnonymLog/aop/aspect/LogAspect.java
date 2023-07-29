@@ -24,12 +24,12 @@ public class LogAspect {
     public Object writeLog(ProceedingJoinPoint joinPoint) throws Throwable {
         TraceStatus status = logTrace.begin(joinPoint.getSignature().getName());
         try {
-            return joinPoint.proceed();
+            Object proceed = joinPoint.proceed();
+            logTrace.end(status);
+            return proceed;
         } catch (Exception e) {
             logTrace.exception(status,e);
             throw e;
-        } finally{
-            logTrace.end(status);
         }
     }
 

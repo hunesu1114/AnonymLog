@@ -21,8 +21,13 @@ public class Member {
 
     private String nickname;
     private String password;
+    private String email;
     private Boolean isHen;
     private Boolean isTester;
+
+    @Column(name="ROLE")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToMany(mappedBy = "member")
     private List<Comment> comments = new ArrayList<>();

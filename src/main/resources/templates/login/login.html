@@ -15,7 +15,7 @@
 
     <div class="d-flex justify-content-center" style="margin-top:100px">
         <button id="board-btn" class="custom-btn" style="width: 200px;"
-                onclick="location.href='https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=d567012f42ef44ab1b159b129a35ef8d&redirect_uri=http://localhost:8080/oauth'"
+                th:onclick="|location.href='@{https://kauth.kakao.com/oauth/authorize?response_type=code&client_id={restapikey}&redirect_uri=http://localhost:8080/oauth (restapikey=${restapikey})}'|"
         >Kakao 로그인</button>
     </div>
 
