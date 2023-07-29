@@ -21,6 +21,9 @@ public class SessionLoginController {
 
     private final MemberService memberService;
 
+    /**
+     * 로그인
+     */
     @GetMapping("/login/session")
     public String sessionLogin(Model model, @RequestParam(required = false) Optional<String> trial) {
         if (trial.orElse("none").equals("fail")) {
@@ -31,6 +34,9 @@ public class SessionLoginController {
         return "login/sessionlogin";
     }
 
+    /**
+     * 로그인 완료시 redirect
+     */
     @PostMapping("/login/session")
     public String sessionLogin(@ModelAttribute SessionLoginDto sessionLoginDto, HttpServletRequest request) {
         Member tester = memberService.login(sessionLoginDto, request);
@@ -42,6 +48,9 @@ public class SessionLoginController {
         return "redirect:/home";
     }
 
+    /**
+     * 로그아웃 -> session.invalidate
+     */
     @GetMapping("/logout")
     public String sessionLogout(HttpServletRequest request) {
         HttpSession session = request.getSession();
