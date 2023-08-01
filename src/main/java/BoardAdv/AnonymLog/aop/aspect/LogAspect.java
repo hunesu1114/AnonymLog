@@ -3,14 +3,10 @@ package BoardAdv.AnonymLog.aop.aspect;
 import BoardAdv.AnonymLog.logtracer.TraceStatus;
 import BoardAdv.AnonymLog.logtracer.logtrace.LogTrace;
 import BoardAdv.AnonymLog.logtracer.logtrace.LogTraceImpl;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -32,7 +28,4 @@ public class LogAspect {
             throw e;
         }
     }
-
-
-
 }

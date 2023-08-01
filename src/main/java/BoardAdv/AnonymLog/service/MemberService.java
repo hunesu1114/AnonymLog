@@ -25,6 +25,7 @@ public class MemberService {
     public Member login(SessionLoginDto sessionLoginDto, HttpServletRequest request) {
         Member tester = memberRepository.findByNickname(sessionLoginDto.getNickname());
         if (tester == null) {
+            log.info("login() : 해당 ID 없음");
             return null;
         }
         if (tester.getPassword().equals(sessionLoginDto.getPassword())) {

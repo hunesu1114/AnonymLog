@@ -40,8 +40,9 @@ public class SessionLoginController {
     @PostMapping("/login/session")
     public String sessionLogin(@ModelAttribute SessionLoginDto sessionLoginDto, HttpServletRequest request) {
         Member tester = memberService.login(sessionLoginDto, request);
-
+        log.info("tester : {}", tester.getNickname());
         if (tester == null) {
+            log.info("tester == null");
             return "redirect:/home/login/session?trial=fail";
         }
 
