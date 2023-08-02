@@ -1,6 +1,7 @@
 package BoardAdv.AnonymLog.controller;
 
 import BoardAdv.AnonymLog.entity.Member;
+import BoardAdv.AnonymLog.entity.Role;
 import BoardAdv.AnonymLog.service.MemberService;
 import BoardAdv.AnonymLog.session.SessionConst;
 import lombok.RequiredArgsConstructor;
@@ -43,4 +44,6 @@ public class HomeController {
         model.addAttribute("restapikey", CLIENT_ID);
         return "login/login";
     }
+
+
 }

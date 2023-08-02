@@ -19,11 +19,11 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // TODO : kakaoId 칼럼 순서 두번째로
+    private Long kakaoId;
     private String nickname;
     private String password;
     private String email;
-    private Boolean isHen;
-    private Boolean isTester;
 
     @Column(name="ROLE")
     @Enumerated(EnumType.STRING)

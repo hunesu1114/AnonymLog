@@ -2,10 +2,12 @@ package BoardAdv.AnonymLog.service;
 
 import BoardAdv.AnonymLog.dto.SessionLoginDto;
 import BoardAdv.AnonymLog.entity.Member;
+import BoardAdv.AnonymLog.entity.Role;
 import BoardAdv.AnonymLog.repository.MemberRepository;
 import BoardAdv.AnonymLog.session.SessionConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -29,53 +31,69 @@ public class MemberService {
             return null;
         }
         if (tester.getPassword().equals(sessionLoginDto.getPassword())) {
-
             HttpSession session = request.getSession();
             session.setAttribute(SessionConst.TESTER_LOGIN, tester);
+            session.setAttribute(SessionConst.USER_LOGIN, tester);
             return (Member) session.getAttribute(SessionConst.TESTER_LOGIN);
         } else {
             return null;
         }
     }
 
-    /**
-     * getTesterFromSession() 로 받은 testerFromSession이
-     * null 이 아니면 loginStatus에 true를 담아 model 전송
-     * null 이면 loginStatus에 false를 담아 model 전송
-     */
-    public void addLoginStatusAttribute(HttpServletRequest request, Model model) {
-        Member testerFromSession = getTesterFromSession(request);
-        if (testerFromSession == null) {
-            model.addAttribute("loginStatus", false);
-            log.info("loginStatus : {}",model.getAttribute("loginStatus"));
-        } else {
-            model.addAttribute("loginStatus", true);
-            log.info("loginStatus : {}", model.getAttribute("loginStatus"));
-        }
+    public Member kakaoLogin(Member member, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConst.USER_LOGIN, member);
+        return (Member) session.getAttribute(SessionConst.USER_LOGIN);
     }
 
     /**
-     * sessionMember == null -> return null
-     * sessionMember == tester -> return sessionMember
-     * sessionMember !=null && sessionMember !=tester -> return null
+     * sessionMember가
+     * 일반 회원이면 loginStatus : true, testerLoginStatus : false
+     * 테스터이면 loginStatus : true, testerLoginStatus : true
      */
-    public Member getTesterFromSession(HttpServletRequest request) {
+    public void addLoginStatusAttribute(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
-        Member sessionMember = (Member) session.getAttribute(SessionConst.TESTER_LOGIN);
+        Member sessionMember = (Member) session.getAttribute(SessionConst.USER_LOGIN);
         if (sessionMember == null) {
-            log.info("MemberService.getTesterFromSession : [sessionMember == null]");
-            return null;
-        } else if (sessionMember.getIsTester() == true) {
-            log.info("MemberService.getTesterFromSession : [sessionMember == {}]",sessionMember.getNickname());
-            return sessionMember;
+            model.addAttribute("loginStatus", false);
+            model.addAttribute("testerLoginStatus", false);
+            model.addAttribute("adminLoginStatus", false);
+        } else if(sessionMember.getRole()==Role.ROLE_USER){
+            model.addAttribute("loginStatus", true);
+            model.addAttribute("testerLoginStatus", false);
+            model.addAttribute("adminLoginStatus", false);
+        } else if(sessionMember.getRole()==Role.ROLE_TESTER){
+            model.addAttribute("loginStatus", true);
+            model.addAttribute("testerLoginStatus", true);
+            model.addAttribute("adminLoginStatus", false);
         } else{
-            log.info("MemberService.getTesterFromSession : [sessionMember == {} (NO TESTER)]", sessionMember.getNickname());
-            return null;
+            model.addAttribute("loginStatus", true);
+            model.addAttribute("testerLoginStatus", true);
+            model.addAttribute("adminLoginStatus", true);
         }
     }
 
     public Member save(Member member) {
         return memberRepository.save(member);
+    }
+
+    public Member createMemberFromKakao(Long idFromKakaoResponse, String nickname) {
+        Member member = memberRepository.findByKakaoId(idFromKakaoResponse);
+        if (member != null) {
+            log.info("이미 kakao로 회원가입 된 계정");
+            return member;
+        }
+
+        // TODO : email 처리 어떻게 할 지 고민 => 카카오에서 사업자 등록 안하면 이메일 동의 선택으로만 할 수 있도록 해놔서...
+        return Member.builder()
+                .kakaoId(idFromKakaoResponse)
+                .nickname(nickname)
+                .role(Role.ROLE_USER)
+                .build();
+    }
+
+    public Member findMemberByKakaoId(Long kakaoId) {
+        return memberRepository.findByKakaoId(kakaoId);
     }
 
 

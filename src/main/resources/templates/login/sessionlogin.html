@@ -15,22 +15,24 @@
             <span>테스터 로그인 </span>
         </div>
 
-        <div class="d-flex justify-content-center font-color" style="margin-top:10px"
-             th:if="${trialFailure}">
-            <p style="color: deeppink">로그인 실패</p>
+        <div class="d-flex justify-content-center font-color" style="margin-top:10px" th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}" style="color: deeppink">
+                전체 오류 메시지
+            </p>
         </div>
+
         <div class="d-flex justify-content-center font-color" style="margin-top:10px">
             <span>ID : </span>
-            <input type="text" th:field="*{nickname}" placeholder="ID 입력">
+            <input type="text" id="nickname-input" th:field="*{nickname}" placeholder="ID 입력">
         </div>
 
         <div class="d-flex justify-content-center font-color" style="margin-top:10px">
             <span>PW : </span>
-            <input type="password" th:field="*{password}" placeholder="비밀번호 입력">
+            <input type="password" id="password-input" th:field="*{password}" placeholder="비밀번호 입력">
         </div>
         <div class="d-flex justify-content-center" style="margin-top:5%">
             <div>
-                <button class="custom-btn" style="width: 200px;" type="submit">로그인</button>
+                <button class="custom-btn" id="login-btn" style="width: 200px;" type="submit">로그인</button>
             </div>
             <div>
                 <button class="custom-btn" style="width: 200px;" type="button"
@@ -41,5 +43,11 @@
 
 
 </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!--<script>
+    $('#login-btn').click(function(){
+
+    })
+</script>-->
 </body>
 </html>

@@ -25,6 +25,11 @@
                     onclick="location.href='/home/logout'">Log out</button>
         </div>
 
+        <div class="d-flex justify-content-center" >
+            <button th:if="${loginStatus}" class="custom-btn"  style="width: 200px;" type="button"
+                    onclick="location.href='/home/mypage'">My Page</button>
+        </div>
+
         <div class="row text-center font-color">
             <p style="margin-top:100px;color: #f1c40f;">Made By 김현수</p>
         </div>

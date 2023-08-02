@@ -5,6 +5,7 @@ import BoardAdv.AnonymLog.dto.CommentDto;
 import BoardAdv.AnonymLog.dto.PostDto;
 import BoardAdv.AnonymLog.entity.Member;
 import BoardAdv.AnonymLog.entity.Post;
+import BoardAdv.AnonymLog.entity.Role;
 import BoardAdv.AnonymLog.pagination.Pagination;
 import BoardAdv.AnonymLog.pagination.PagingConst;
 import BoardAdv.AnonymLog.service.MemberService;
@@ -64,8 +65,11 @@ public class PostController {
     public String post(@PathVariable Long id, Model model,HttpServletRequest request) {
         Post post = postService.findById(id);
         model.addAttribute("post", post);
-        Member sessionMember = memberService.getTesterFromSession(request);
-        if (sessionMember!=null&&sessionMember.getIsHen()) {
+
+        Member sessionMember = (Member) request.getSession().getAttribute(SessionConst.TESTER_LOGIN);
+        // TODO : 추후 스프링 시큐리티로 제어할 것
+        // 댓글 작성 폼 => admin 인가
+        if (sessionMember!=null&&sessionMember.getRole()==Role.ROLE_ADMIN) {
             memberService.addLoginStatusAttribute(request, model);
             CommentDto commentDto = new CommentDto();
             model.addAttribute("commentDto", commentDto);
@@ -80,7 +84,7 @@ public class PostController {
     public String post(@PathVariable Long id, @ModelAttribute CommentDto commentDto, RedirectAttributes redirectAttributes,HttpServletRequest request) {
         redirectAttributes.addAttribute("id", id);
         log.info("commentDto.content : {}", commentDto.getContent());
-        Member sessionMember = memberService.getTesterFromSession(request);
+        Member sessionMember = (Member) request.getSession().getAttribute(SessionConst.TESTER_LOGIN);
         commentDto.setMember(sessionMember);
         commentDto.setPost(postService.findById(id));
         postService.saveComment(commentDto);
@@ -118,18 +122,18 @@ public class PostController {
 
 
     /**
-     * 게시글 수정시 인증 (HEN인 경우 인증 X)
+     * 게시글 수정시 인증 (Admin인 경우 인증 X)
      */
     @GetMapping("/post/editAuth/{id}")
     public String editAuth(@PathVariable Long id, @RequestParam(required = false) Optional<String> trial
             , Model model,HttpServletRequest request, RedirectAttributes redirectAttributes) {
 
         /**
-         * getTesterFromSession 메서드로 Tester Member를 가져옴
-         * Tester && Hen 인 경우 인증 없이 edit 가능
+         * Tester && Admin 인 경우 인증 없이 edit 가능
          */
-        Member sessionMember = memberService.getTesterFromSession(request);
-        if (sessionMember!=null&&sessionMember.getIsHen()) {
+        Member sessionMember = (Member) request.getSession().getAttribute(SessionConst.TESTER_LOGIN);
+        // TODO : 추후 스프링 시큐리티로 제어할 것
+        if (sessionMember!=null&&sessionMember.getRole()==Role.ROLE_ADMIN) {
             redirectAttributes.addAttribute("postId", id);
             return "redirect:/board/post/edit/{postId}";
         }

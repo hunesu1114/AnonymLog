@@ -9,4 +9,7 @@ public class KakaoAccount {
     private Boolean isEmailValid;
     private Boolean isEmailVerified;
     private String email;
+
+    private Boolean profile_nickname_needs_agreement;
+    private Profile profile;
 }

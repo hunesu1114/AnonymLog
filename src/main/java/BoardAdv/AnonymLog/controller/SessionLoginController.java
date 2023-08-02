@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,10 +26,7 @@ public class SessionLoginController {
      * 로그인
      */
     @GetMapping("/login/session")
-    public String sessionLogin(Model model, @RequestParam(required = false) Optional<String> trial) {
-        if (trial.orElse("none").equals("fail")) {
-            model.addAttribute("trialFailure", true);
-        }
+    public String sessionLoginGet(Model model) {
         SessionLoginDto sessionLoginDto = new SessionLoginDto();
         model.addAttribute("sessionLoginDto", sessionLoginDto);
         return "login/sessionlogin";
@@ -38,12 +36,12 @@ public class SessionLoginController {
      * 로그인 완료시 redirect
      */
     @PostMapping("/login/session")
-    public String sessionLogin(@ModelAttribute SessionLoginDto sessionLoginDto, HttpServletRequest request) {
+    public String sessionLoginPost(@ModelAttribute SessionLoginDto sessionLoginDto, HttpServletRequest request, BindingResult bindingResult) {
         Member tester = memberService.login(sessionLoginDto, request);
-        log.info("tester : {}", tester.getNickname());
         if (tester == null) {
             log.info("tester == null");
-            return "redirect:/home/login/session?trial=fail";
+            bindingResult.reject("loginFail","로그인 실패");
+            return "login/sessionlogin";
         }
 
         return "redirect:/home";
@@ -58,4 +56,7 @@ public class SessionLoginController {
         session.invalidate();
         return "redirect:/home";
     }
+
+    // TODO : 마이페이지 구현
+
 }
