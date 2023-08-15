@@ -30,7 +30,7 @@
 
 
 ======BUG FIX(BackLog)======
-- 카카오로그인 실패
+- 카카오로그인 실패 -> REDIRECT_URI 수정하고 kakao developer 가서도 바꿨는데 해결x
 
 
 ======BUG FIX(Done)=========

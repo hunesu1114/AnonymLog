@@ -28,7 +28,10 @@ public class OAuthService {
     private final WebClient webClient;
     private static final String TOKEN_URI = "https://kauth.kakao.com/oauth/token";
     private static final String USER_INFO_URI = "https://kapi.kakao.com/v2/user/me";
-    private static final String REDIRECT_URI = "http://localhost:8080/oauth";
+    //개발용
+//    private static final String REDIRECT_URI = "http://localhost:8080/oauth";
+    //배포용
+    private static final String REDIRECT_URI = "http://3.25.19.215/oauth";
     private static final String GRANT_TYPE = "authorization_code";
     @Value("${kakao.rest.api.key}")
     private String CLIENT_ID;
