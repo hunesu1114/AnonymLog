@@ -9,6 +9,7 @@
 ==========진행중==========
 - 여러 사용자 사용할 수 있도록 구현
 - 현재 구현해 놓은 인가 -> spring security로 구현해야함
+- portfolio 페이지 구현
 
 
 
@@ -23,7 +24,8 @@
 - Spring AOP를 이용한 로그 추적기 구현
 - OAuth -> 카카오로그인 구현
 - user, tester, admin 인가 구현(추후 security로 대체해야 함)
-
+- actuator, prometheus 적용 
+- actuator를 이용한 방문자 수 표시 구현
 
 ======BUG FIX(BackLog)======
 - 카카오로그인 실패 -> REDIRECT_URI 수정하고 kakao developer 가서도 바꿨는데 해결x

@@ -25,6 +25,15 @@ h1 {
     text-align: center;
 }
 
+h5 {
+    color: #f1c40f;
+    font-size: 15px;
+    text-transform: uppercase;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
 button {
     margin: 20px;
     outline: none;
