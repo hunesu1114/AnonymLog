@@ -9,11 +9,11 @@
     <style>
         @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-        html, body{
+        html, body {
             background-color: #FFC436;
         }
 
-        body{
+        body {
             margin-top: 5%;
         }
 
@@ -122,24 +122,24 @@
             height: 3px;
         }
 
-        .sub-content{
+        .sub-content {
 
         }
 
-        .sub-content-1{
+        .sub-content-1 {
             width: 25%;
         }
 
-        .sub-content-2{
+        .sub-content-2 {
             width: 100%;
         }
 
-        a{
+        a {
             color: #0C356A;
             text-decoration-line: none;
         }
 
-        a:hover{
+        a:hover {
             color: white;
         }
     </style>
@@ -154,7 +154,8 @@
         <div class="d-flex justify-content-center">
             <button class="custom-btn-1 btn-1"
                     style="width: 100px; height: 40px;margin-bottom: 30px;font-size: 15px"
-                    onclick="location.href='/home'">메인페이지</button>
+                    onclick="location.href='/home'">메인페이지
+            </button>
         </div>
         <div class="main-content">
             <div>
@@ -173,39 +174,42 @@
 
                 </div>
 
-                <div style="width:45%">
-                    <table style="border:none;color: #0C356A">
-                        <tr>
-                            <td style="text-align: right">Phone :</td>
-                            <td>&nbsp;&nbsp; 010-3939-4968</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: right">e-mail :</td>
-                            <td>&nbsp;&nbsp;kewcxea@naver.com</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: right">github :</td>
-                            <td><a href="https://github.com/hunesu1114">
-                                &nbsp;&nbsp;https://github.com/hunesu1114</a></td>
-                        </tr>
-                    </table>
+                <div class="d-flex justify-content-center row">
+                    <div style="width:45%">
+                        <table style="border:none;color: #0C356A">
+                            <tr>
+                                <td style="text-align: right">Phone :</td>
+                                <td>&nbsp;&nbsp; 010-3939-4968</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right">e-mail :</td>
+                                <td>&nbsp;&nbsp;kewcxea@naver.com</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right">github :</td>
+                                <td><a href="https://github.com/hunesu1114">
+                                    &nbsp;&nbsp;https://github.com/hunesu1114</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="width: 30%">
+                        <table style="border:none;color: #0C356A">
+                            <tr>
+                                <td style="text-align: right">학력 :</td>
+                                <td>&nbsp;&nbsp;인하대학교 수학과 졸업</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right">자격증 :</td>
+                                <td>&nbsp;&nbsp;정보처리기사 (필기 합)</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right">장점 :</td>
+                                <td>&nbsp;&nbsp;실무를 통한 빠른 성장</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-                <div style="width: 45%">
-                    <table style="border:none;color: #0C356A">
-                        <tr>
-                            <td style="text-align: right">학력 :</td>
-                            <td>&nbsp;&nbsp;인하대학교 수학과 졸업</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: right">자격증 :</td>
-                            <td>&nbsp;&nbsp;정보처리기사 (필기 합)</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: right">장점 :</td>
-                            <td>&nbsp;&nbsp;실무를 통한 빠른 성장</td>
-                        </tr>
-                    </table>
-                </div>
+
 
             </div>
 
@@ -218,15 +222,15 @@
 
                 </div>
 
-                <div class="sub-content-2">
+                <div class="sub-content-2 d-flex justify-content-center">
                     <table style="color: #0C356A;font-size: 20px;width: 100%">
                         <tr style="height: 50px">
                             <td class="d-flex justify-content-center">
                                 <img src="/img/java.png" alt="" height="60px">
-<!--                                <img src="/img/spring-boot.png" alt="" height="40px">-->
+                                <!--                                <img src="/img/spring-boot.png" alt="" height="40px">-->
                                 <img src="/img/spring-data-jpa.png" alt="" height="60px">
                             </td>
-                            <td>
+                            <td style="width: 45%">
                                 &nbsp;&nbsp;&nbsp;Java / Spring Boot / Spring Data JPA
                             </td>
                         </tr>
@@ -264,42 +268,89 @@
                 </div>
 
                 <div class="sub-content-2">
-                    - 브랜드콘텐츠 | 2023.08 ~ 2023.12 (5개월)
+                    <div style="font-size: 25px">
+                        - 브랜드콘텐츠 | 2023.08 ~ 2023.12 (5개월)
+                    </div>
                     <br>
-                    <div style="margin-left: 10px">
-                        1. 인공지능 학습용 데이터 구축사업 (혈관데이터, 해파리) (23.09~23.12)
-                        <div style="margin-left: 10px">
-                            TECH : Java, SpringBoot, JPA, MySQL, JQuery, HTML, CSS, AWS EC2, RDS, S3
-                            <br>
-                            1) API 서버 구축 및 DB (18개 테이블) 설계, 유지보수, 배포<br>
-                            2) 어드민 페이지 서버 구축 및 퍼블리싱<br>
-                            3) AspectJ 를 이용하여 로그추적기 구현, 로그파일 S3저장 구현<br>
-                            4) ZIP파일 업로드 시, 압축 해제 후 S3로 업로드 구현<br>
-                            5) 유저 권한 별 접근 가능 페이지 및 API 분리<br>
-                            6) 데이터 조회, 수정 쿼리 작성<br>
-                            7) API 명세 작성<br>
+                    <div class="d-flex justify-content-left row">
+                        <div style="width: 50%">
+                            <div style="margin-left: 10px">
+                                <div style="font-size: 20px">
+                                    1. 인공지능 학습용 데이터 구축사업 (혈관데이터, 해파리)
+                                </div>
+                                <div style="margin-left: 10px">
+                                    <img src="/img/tobnee.png" alt="" height="20px">&nbsp;Java, SpringBoot, JPA, MySQL,
+                                    JQuery, HTML, CSS, AWS EC2, RDS, S3
+                                    <br>
+                                    <div style="margin-left: 35px;margin-top:5px">
+                                        1) API 서버 구축 및 DB (18개 테이블) 설계, 유지보수, 배포<br>
+                                        2) 어드민 페이지 서버 구축 및 퍼블리싱<br>
+                                        3) AspectJ 를 이용하여 로그추적기 구현, 로그파일 S3저장 구현<br>
+                                        4) ZIP파일 업로드 시, 압축 해제 후 S3로 업로드 구현<br>
+                                        5) 유저 권한 별 접근 가능 페이지 및 API 분리<br>
+                                        6) 데이터 조회, 수정 쿼리 작성<br>
+                                        7) API 명세 작성<br>
+                                    </div>
+                                </div>
+                            </div>
+                            <br><br>
+                            <div style="margin-left: 10px">
+                                <div style="font-size: 20px">
+                                    2. 한국건설기술연구원 주요사업 페스티벌 과제 평가페이지 제작
+                                </div>
+                                <div style="margin-left: 10px">
+                                    <img src="/img/tobnee.png" alt="" height="20px">&nbsp;Java, SpringBoot, JPA, MySQL,
+                                    JQuery, HTML, CSS, AWS EC2
+                                    <br>
+                                    <div style="margin-left: 35px;margin-top:5px">
+                                        1) 웹 서버 구축, DB 설계, 퍼블리싱, 배포 전부 혼자 진행<br>
+                                    </div>
+                                </div>
+                            </div>
+                            <br><br>
+                            <div style="margin-left: 10px">
+                                <div style="font-size: 20px">
+                                    3. 부산시민대학 LMS 어드민 페이지 제작
+                                </div>
+                                <div style="margin-left: 10px">
+                                    <img src="/img/tobnee.png" alt="" height="20px">&nbsp;Java, SpringBoot, MyBatis,
+                                    MySQL, JQuery, HTML, CSS, AWS EC2
+                                    <br>
+                                    <div style="margin-left: 35px;margin-top:5px">
+                                        1) 어드민 페이지 서버 구축<br>
+                                        2) 강의 영상 업로드 API 구현<br>
+                                        3) 외부 서버의 DB와 연계하여 User테이블 동기화 로직 작성<br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 50%">
+                            <div>
+                                <button class="custom-btn-1 btn-1" style="width: 33%;margin:0 -5px 0 0">1. 학습용 데이터 구축</button>
+                                <button class="custom-btn-1 btn-1" style="width: 33%;margin:0 -5px 0 0">2. 주요사업 페스티벌</button>
+                                <button class="custom-btn-1 btn-1" style="width: 33%;margin:0">3. 부산시민대학 LMS</button>
+                            </div>
+                            <div style="border: 3px solid #0C356A; margin-top: 5px;height: 480px;width: 99.3%">
+                                <div id="detail-1" style="display:block">
+                                    <div style="font-size: 20px;text-align: center">
+                                        <img src="/img/calendar.png" alt="" height="30px">&nbsp;23.09~23.12
+                                    </div>
+                                </div>
+                                <div id="detail-2" style="display:none">
+                                    <div style="font-size: 20px;text-align: center">
+                                        <img src="/img/calendar.png" alt="" height="30px">&nbsp;23.10~23.12
+                                    </div>
+                                </div>
+                                <div id="detail-3" style="display:none">
+                                    <div style="font-size: 20px;text-align: center">
+                                        <img src="/img/calendar.png" alt="" height="30px">&nbsp;23.12
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <br><br>
-                    <div style="margin-left: 10px">
-                        2. 한국건설기술연구원 주요사업 페스티벌 과제 평가페이지 제작 (23.10~23.12)
-                        <div style="margin-left: 10px">
-                            TECH : Java, SpringBoot, JPA, MySQL, JQuery, HTML, CSS, AWS EC2
-                            <br>
-                            1) 웹 서버 구축, DB 설계, 퍼블리싱, 배포 전부 혼자 진행<br>
-                        </div>
-                    </div>
-                    <br><br>
-                    <div style="margin-left: 10px">
-                        3. 부산시민대학 LMS 어드민 페이지 제작 (23.12)
-                        <div style="margin-left: 10px">
-                            TECH : Java, SpringBoot, MyBatis, MySQL, JQuery, HTML, CSS, AWS EC2
-                            <br>
-                            1) 어드민 페이지 서버 구축<br>
-                            2) 강의 영상 업로드 API 구현<br>
-                            3) 외부 서버의 DB와 연계하여 User테이블 동기화 로직 작성<br>
-                        </div>
-                    </div>
+
+
                 </div>
 
             </div>
