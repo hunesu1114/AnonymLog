@@ -341,7 +341,7 @@
                                 <div id="detail-1" style="display:block">
                                     <div style="font-size: 20px;text-align: center">
                                         <img src="/img/calendar.png" alt="" height="30px">&nbsp;23.09~23.12 <br><br>
-                                        <div style="font-size: 14px ;text-align: left">
+                                        <div style="font-size: 17px ;text-align: left">
                                             - 유저 관련 SELECT 쿼리 실행 시, N+1 문제 발생하여 FetchType Lazy 설정 <br><br>
                                             - 수집데이터 업로드 시 최대 2000개의 데이터를 db에 insert하는 과정에서 시간이 오래걸려서
                                             JdbcTemplate의 batchUpdate 를 이용하여 bulk insert 구현함. 평균 40초 -> 3초 로 성능 개선 <br><br>
@@ -366,8 +366,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
 
             </div>
@@ -377,15 +375,105 @@
                     <p style="font-size: 30px;">
                         Projects
                     </p>
-
                 </div>
 
                 <div class="sub-content-2">
+                    <div style="font-size: 25px">
+                        - Smoking Location
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-left row">
+                        <div style="width: 100%">
+                            <div style="margin-left: 10px">
+                                <div style="font-size: 20px">
+                                    <img src="/img/tobnee.png" alt="" height="20px">&nbsp;Java, SpringBoot, JPA, PostgreSQL,
+                                    JQuery, HTML, CSS, AWS EC2, RDS
+                                    <br>
+                                    <div class="d-flex justify-content-center row">
+                                        <div style="margin-left: 35px;margin-top:5px">
+                                            서울시 흡연장소를 naver maps api를 이용하여 지도에 표시하는 프로젝트입니다.
+                                            공공기관에서 제공하는 흡연장소에 대한 json 데이터를 파싱하여 db에 저장하고 지도에 표시하였고,
+                                            현 위치에서 특정 흡연장소 까지 경로를 표시하도록 구현하였습니다.
+                                        </div>
+                                        <div class="d-flex justify-content-center row" style="margin-top: 10px">
+                                            <img src="/img/sl-cap1.png" alt="" width="50%">
+                                        </div>
+                                        <div class="d-flex justify-content-center row" style="margin-top: 10px;margin-bottom: 10px">
+                                            "공공데이터포털" 에서 제공하는 서울시 각 구의 흡연장소에 대한 json 데이터를 받는 api를 이용하였습니다. <br>
+                                            공공기관 api로 받은 json 데이터의 형식이 각각 달라서 필요한 데이터를 얻기 위해 데이터 파싱을 해주었습니다.
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <img src="/img/sl-cap2.png" alt="" height="60%">
+                                            <img src="/img/sl-cap3.png" alt="" height="60%">
+                                        </div>
+                                        <div style="margin-top: -20%">
+                                            <div class="d-flex justify-content-center row" style="margin-bottom: 10px">
+                                                또한 현재 위치에서 특정 흡연장소로의 경로를 표시해 주도록 구현했습니다.
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <img src="/img/sl-cap4.png" alt="" width="50%">
+                                                <img src="/img/sl-cap5.png" alt="" width="50%">
+                                            </div>
+                                        </div>
 
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div style="font-size: 25px">
+                        - AnonymLog
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-left row">
+                        <div style="width: 100%">
+                            <div style="margin-left: 10px">
+                                <div style="margin-left: 10px;font-size: 20px">
+                                    <img src="/img/tobnee.png" alt="" height="20px">&nbsp;Java, SpringBoot, JPA, PostgreSQL,
+                                    JQuery, HTML, CSS, AWS EC2, RDS
+                                    <br>
+                                    <div class="d-flex justify-content-center row">
+                                        <div style="margin-left: 35px;margin-top:5px">
+                                            평소에 굳이 시간내어 얘기하기에는 가벼웠던 내용이나,
+                                            익명의 힘을 빌려 비로소 말할 수 있는 것들을 전달할 수 있는 창구가 있으면 좋겠다고 생각해 만든 프로젝트 입니다.
+                                            차후 각각의 유저가 각각의 게시판을 가질 수 있도록 개발할 예정입니다.
+                                        </div>
+                                        <div class="d-flex justify-content-center row" style="margin-top: 10px">
+                                            <img src="/img/al-cap2.png" alt="" width="50%">
+                                        </div>
+                                        <div class="d-flex justify-content-center row" style="margin-top: 10px;margin-bottom: 10px">
+                                            홈 화면에서 방문자 수는 Spring Boot Actuator 를 이용하여 서버 요청 Count 메트릭으로 나타내었습니다. <br>
+                                            이 기회를 통해 Actuator를 더 효과적으로 이용하기 위해 "프로메테우스"를 이용하여 metric을 저장하고 <br>
+                                            "Grafana" 를 이용하여 metric 수치의 시각화를 공부 하는 계기가 되었습니다.
+                                        </div>
+                                        <div class="d-flex justify-content-center" style="margin-top: 10px">
+                                            <img src="/img/al-cap1.png" alt="" width="50%">
+                                            <img src="/img/al-cap5.png" alt="" width="50%">
+                                        </div>
+                                        <div class="d-flex justify-content-center row" style="margin-top: 10px;margin-bottom: 10px">
+                                            해당 프로젝트를 처음 개발 할 시기에, 스프링 AOP, AspectJ를 공부하는 중이었습니다. <br>
+                                            이 내용을 구현하기 위해 "로그추적기" 구현하여 적용하였습니다.
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <img src="/img/al-cap3.png" alt="" width="50%">
+                                            <img src="/img/al-cap4.png" alt="" width="50%">
+                                        </div>
+                                        <div class="d-flex justify-content-center row" style="margin-top: 10px">
+                                            <img src="/img/al-cap6.png" alt="" width="50%">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-            <div class="hr-line"></div>
+            <div class="hr-line" style="margin-top: 30px"></div>
         </div>
 
     </div>

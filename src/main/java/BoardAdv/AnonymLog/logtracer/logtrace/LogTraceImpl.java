@@ -13,24 +13,12 @@ public class LogTraceImpl implements LogTrace {
 
     private ThreadLocal<TraceId> traceIdHolder = new ThreadLocal<>();       //동시성 문제 해결
 
-    @Override
-    public TraceStatus begin(String message) {
-        syncTraceId();
-        TraceId traceId = traceIdHolder.get();
-        Long startTimeMs = System.currentTimeMillis();
-        log.info("[{}] {}{}", traceId.getId(), addSpace(START_PREFIX, traceId.getLevel()), message);
-
-        return new TraceStatus(traceId, startTimeMs, message);
-    }
-
-    @Override
-    public void end(TraceStatus status) {
-        complete(status, null);
-    }
-
-    @Override
-    public void exception(TraceStatus status, Exception e) {
-        complete(status, e);
+    private static String addSpace(String prefix, int level) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < level; i++) {
+            sb.append( (i == level - 1) ? "|" + prefix : "|   ");
+        }
+        return sb.toString();
     }
 
     private void complete(TraceStatus status, Exception e) {
@@ -38,11 +26,12 @@ public class LogTraceImpl implements LogTrace {
         long resultTimeMs = stopTimeMs - status.getStartTimeMs();
         TraceId traceId = status.getTraceId();
         if (e == null) {
-            log.info("[{}] {}{} time={}ms", traceId.getId(), addSpace(COMPLETE_PREFIX, traceId.getLevel()), status.getMessage(), resultTimeMs);
+            log.info("[{}] {}{} time={}ms",
+                    traceId.getId(), addSpace(COMPLETE_PREFIX, traceId.getLevel()), status.getMessage(), resultTimeMs);
         } else {
-            log.info("[{}] {}{} time={}ms ex={}", traceId.getId(), addSpace(EX_PREFIX, traceId.getLevel()), status.getMessage(), resultTimeMs, e.toString());
+            log.info("[{}] {}{} time={}ms ex={}",
+                    traceId.getId(), addSpace(EX_PREFIX, traceId.getLevel()), status.getMessage(), resultTimeMs, e.toString());
         }
-
         releaseTraceId();
     }
 
@@ -64,11 +53,27 @@ public class LogTraceImpl implements LogTrace {
         }
     }
 
-    private static String addSpace(String prefix, int level) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < level; i++) {
-            sb.append( (i == level - 1) ? "|" + prefix : "|   ");
-        }
-        return sb.toString();
+
+
+    @Override
+    public TraceStatus begin(String message) {
+        syncTraceId();
+        TraceId traceId = traceIdHolder.get();
+        Long startTimeMs = System.currentTimeMillis();
+        log.info("[{}] {}{}", traceId.getId(), addSpace(START_PREFIX, traceId.getLevel()), message);
+
+        return new TraceStatus(traceId, startTimeMs, message);
     }
+
+    @Override
+    public void end(TraceStatus status) {
+        complete(status, null);
+    }
+
+    @Override
+    public void exception(TraceStatus status, Exception e) {
+        complete(status, e);
+    }
+
+
 }
