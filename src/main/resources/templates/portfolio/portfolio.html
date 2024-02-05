@@ -167,12 +167,12 @@
         <div class="main-content">
             <div>
                 <!--                메인 탭-->
-                <button class="custom-btn-1 btn-1" style="margin: 0">About Me</button>
-                <button class="custom-btn-1 btn-1" style="margin: 0">Skills</button>
-                <button class="custom-btn-1 btn-1" style="margin: 0">Career</button>
-                <button class="custom-btn-1 btn-1" style="margin: 0">Projects</button>
+                <button id="main-btn-1" class="custom-btn-1 btn-1" style="margin: 0">About Me</button>
+                <button id="main-btn-2" class="custom-btn-1 btn-1" style="margin: 0">Skills</button>
+                <button id="main-btn-3" class="custom-btn-1 btn-1" style="margin: 0">Career</button>
+                <button id="main-btn-4" class="custom-btn-1 btn-1" style="margin: 0">Projects</button>
             </div>
-            <div class="hr-line"></div>
+            <div id="about-me" class="hr-line"></div>
             <div class="d-flex justify-content-left row" style="color: #0C356A;font-weight: bold">
                 <div style="width:100%">
                     <p style="font-size: 30px;">
@@ -220,7 +220,7 @@
 
             </div>
 
-            <div class="hr-line"></div>
+            <div id="skills" class="hr-line"></div>
             <div class="d-flex justify-content-left row" style="color: #0C356A;font-weight: bold">
                 <div class="sub-content-1">
                     <p style="font-size: 30px;">
@@ -266,7 +266,7 @@
                 </div>
 
             </div>
-            <div class="hr-line"></div>
+            <div id="career" class="hr-line"></div>
             <div class="d-flex justify-content-left row" style="color: #0C356A;font-weight: bold">
                 <div class="sub-content-1">
                     <p style="font-size: 30px;">
@@ -333,20 +333,27 @@
                         </div>
                         <div style="width: 50%">
                             <div>
-                                <button class="custom-btn-1 btn-1" style="width: 33%;margin:0 -5px 0 0">1. 학습용 데이터 구축</button>
-                                <button class="custom-btn-1 btn-1" style="width: 33%;margin:0 -5px 0 0">2. 주요사업 페스티벌</button>
-                                <button class="custom-btn-1 btn-1" style="width: 33%;margin:0">3. 부산시민대학 LMS</button>
+                                <button id="detail-btn-1" class="custom-btn-1 btn-1" style="width: 33%;margin:0 -5px 0 0">1. 학습용 데이터 구축
+                                </button>
+                                <button id="detail-btn-2" class="custom-btn-1 btn-1" style="width: 33%;margin:0 -5px 0 0">2. 주요사업 페스티벌
+                                </button>
+                                <button id="detail-btn-3" class="custom-btn-1 btn-1" style="width: 33%;margin:0">3. 부산시민대학 LMS</button>
                             </div>
                             <div style="border: 3px solid #0C356A; margin-top: 5px;height: 480px;width: 99.3%">
                                 <div id="detail-1" style="display:block">
                                     <div style="font-size: 20px;text-align: center">
                                         <img src="/img/calendar.png" alt="" height="30px">&nbsp;23.09~23.12 <br><br>
-                                        <div style="font-size: 17px ;text-align: left">
+                                        <div style="font-size: 16px ;text-align: left; margin:5px">
+                                            이 프로젝트는 인공지능 학습용 데이터를 구축하는 과정인 "수집, 정제, 가공, 검수" 프로세스에
+                                            대한 작업을 데이터화 하는 서버를 구축하는 것 이었습니다. DB의 메인 데이터 테이블의 데이터는
+                                            약 179만개이고 해당 서버 동시 이용자 수는 최대 120명 이었습니다. <br><br>
                                             - 유저 관련 SELECT 쿼리 실행 시, N+1 문제 발생하여 FetchType Lazy 설정 <br><br>
                                             - 수집데이터 업로드 시 최대 2000개의 데이터를 db에 insert하는 과정에서 시간이 오래걸려서
-                                            JdbcTemplate의 batchUpdate 를 이용하여 bulk insert 구현함. 평균 40초 -> 3초 로 성능 개선 <br><br>
+                                            JdbcTemplate의 batchUpdate 를 이용하여 bulk insert 구현함. 평균 40초 -> 3초 로 성능 개선
+                                            <br><br>
                                             - 서비스 동시 접속자가 최대 150명 이었기 때문에 동시 요청으로 인한 Custom PK 중복 에러 발생(동시성 문제).
-                                            while문과 try~catch 문으로 0.1초 대기 후 재요청 보내도록 구현. 최대 100회 재요청 보낼 수 있도록 설정함. <br><br>
+                                            while문과 try~catch 문으로 0.1초 대기 후 재요청 보내도록 구현. 최대 100회 재요청 보낼 수 있도록 설정함.
+                                            <br><br>
                                             - 통계 페이지에서 많은 테이블에 대한 데이터가 필요한 경우 Native Query를 이용하여 성능 개선 (8초 -> 1초)
                                         </div>
 
@@ -355,12 +362,26 @@
                                 </div>
                                 <div id="detail-2" style="display:none">
                                     <div style="font-size: 20px;text-align: center">
-                                        <img src="/img/calendar.png" alt="" height="30px">&nbsp;23.10~23.12
+                                        <img src="/img/calendar.png" alt="" height="30px">&nbsp;23.10~23.12 <br><br>
+                                        <div style="font-size: 16px ;text-align: left; margin:5px">
+                                            건설기술연구원에서 개최한 과제 발표 행사 웹 페이지를 구축한 프로젝트입니다.
+                                            이 프로젝트는 발표 과제 자료 조회 및 평가 기능을 담고있습니다. 유저 권한은 4단계로
+                                            분리되어있고, 각 권한마다 서로 다른 평가 지표를 표출해주고 평가 결과 처리 로직을 전부 다르게
+                                            작성해야 했던 프로젝트입니다. <br><br>
+
+                                        </div>
                                     </div>
                                 </div>
                                 <div id="detail-3" style="display:none">
                                     <div style="font-size: 20px;text-align: center">
-                                        <img src="/img/calendar.png" alt="" height="30px">&nbsp;23.12
+                                        <img src="/img/calendar.png" alt="" height="30px">&nbsp;23.12 <br><br>
+                                        <div style="font-size: 16px ;text-align: left; margin:5px">
+                                            이 프로젝트는 개발 도중 중단되었던 프로젝트였습니다. DB설계와 웹 프론트 개발이 어느정도 틀이
+                                            잡혀 있는 상황에서 제가 맡은 업무는 이 프로젝트에서 '어드민 페이지' 를 구축하는 것 이었습니다.
+                                            어드민 페이지는 제가 처음부터 구축을 했어야 하는 상황이었습니다. 저는 어드민 페이지 구축을 위해
+                                            강의영상, 강사, 강의 카테고리 등의 CRUD를 전부 구현했습니다. 또한 대용량 비디오 업로드 로직을
+                                            구현하면서 외부 api 서버와의 연동도 경험해보았습니다. <br><br>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -369,7 +390,7 @@
                 </div>
 
             </div>
-            <div class="hr-line"></div>
+            <div id="projects" class="hr-line"></div>
             <div class="d-flex justify-content-left row" style="color: #0C356A;font-weight: bold">
                 <div class="sub-content-1">
                     <p style="font-size: 30px;">
@@ -386,7 +407,8 @@
                         <div style="width: 100%">
                             <div style="margin-left: 10px">
                                 <div style="font-size: 20px">
-                                    <img src="/img/tobnee.png" alt="" height="20px">&nbsp;Java, SpringBoot, JPA, PostgreSQL,
+                                    <img src="/img/tobnee.png" alt="" height="20px">&nbsp;Java, SpringBoot, JPA,
+                                    PostgreSQL,
                                     JQuery, HTML, CSS, AWS EC2, RDS
                                     <br>
                                     <div class="d-flex justify-content-center row">
@@ -398,7 +420,8 @@
                                         <div class="d-flex justify-content-center row" style="margin-top: 10px">
                                             <img src="/img/sl-cap1.png" alt="" width="50%">
                                         </div>
-                                        <div class="d-flex justify-content-center row" style="margin-top: 10px;margin-bottom: 10px">
+                                        <div class="d-flex justify-content-center row"
+                                             style="margin-top: 10px;margin-bottom: 10px">
                                             "공공데이터포털" 에서 제공하는 서울시 각 구의 흡연장소에 대한 json 데이터를 받는 api를 이용하였습니다. <br>
                                             공공기관 api로 받은 json 데이터의 형식이 각각 달라서 필요한 데이터를 얻기 위해 데이터 파싱을 해주었습니다.
                                         </div>
@@ -407,7 +430,8 @@
                                             <img src="/img/sl-cap3.png" alt="" height="60%">
                                         </div>
                                         <div style="margin-top: -20%">
-                                            <div class="d-flex justify-content-center row" style="margin-bottom: 10px">
+                                            <div class="d-flex justify-content-center row"
+                                                 style="margin-bottom: 10px">
                                                 또한 현재 위치에서 특정 흡연장소로의 경로를 표시해 주도록 구현했습니다.
                                             </div>
                                             <div class="d-flex justify-content-center">
@@ -433,7 +457,8 @@
                         <div style="width: 100%">
                             <div style="margin-left: 10px">
                                 <div style="margin-left: 10px;font-size: 20px">
-                                    <img src="/img/tobnee.png" alt="" height="20px">&nbsp;Java, SpringBoot, JPA, PostgreSQL,
+                                    <img src="/img/tobnee.png" alt="" height="20px">&nbsp;Java, SpringBoot, JPA,
+                                    PostgreSQL,
                                     JQuery, HTML, CSS, AWS EC2, RDS
                                     <br>
                                     <div class="d-flex justify-content-center row">
@@ -445,8 +470,10 @@
                                         <div class="d-flex justify-content-center row" style="margin-top: 10px">
                                             <img src="/img/al-cap2.png" alt="" width="50%">
                                         </div>
-                                        <div class="d-flex justify-content-center row" style="margin-top: 10px;margin-bottom: 10px">
-                                            홈 화면에서 방문자 수는 Spring Boot Actuator 를 이용하여 서버 요청 Count 메트릭으로 나타내었습니다. <br>
+                                        <div class="d-flex justify-content-center row"
+                                             style="margin-top: 10px;margin-bottom: 10px">
+                                            홈 화면에서 방문자 수는 Spring Boot Actuator 를 이용하여 서버 요청 Count 메트릭으로 나타내었습니다.
+                                            <br>
                                             이 기회를 통해 Actuator를 더 효과적으로 이용하기 위해 "프로메테우스"를 이용하여 metric을 저장하고 <br>
                                             "Grafana" 를 이용하여 metric 수치의 시각화를 공부 하는 계기가 되었습니다.
                                         </div>
@@ -454,7 +481,8 @@
                                             <img src="/img/al-cap1.png" alt="" width="50%">
                                             <img src="/img/al-cap5.png" alt="" width="50%">
                                         </div>
-                                        <div class="d-flex justify-content-center row" style="margin-top: 10px;margin-bottom: 10px">
+                                        <div class="d-flex justify-content-center row"
+                                             style="margin-top: 10px;margin-bottom: 10px">
                                             해당 프로젝트를 처음 개발 할 시기에, 스프링 AOP, AspectJ를 공부하는 중이었습니다. <br>
                                             이 내용을 구현하기 위해 "로그추적기" 구현하여 적용하였습니다.
                                         </div>
@@ -482,6 +510,66 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
+    $(document).ready(function(){
+        $('#detail-btn-1').css('background-color', '#FFC436');
+        $('#detail-btn-1').css('color', '#0C356A');
+    })
+
+    $('#detail-btn-1').click(function () {
+        $('#detail-btn-1').css('background-color', '#FFC436');
+        $('#detail-btn-2').css('background-color', '#0C356A');
+        $('#detail-btn-3').css('background-color', '#0C356A');
+        $('#detail-btn-1').css('color', '#0C356A');
+        $('#detail-btn-2').css('color', 'white');
+        $('#detail-btn-3').css('color', 'white');
+        $('#detail-1').css('display', 'block');
+        $('#detail-2').css('display', 'none');
+        $('#detail-3').css('display', 'none');
+    });
+
+    $('#detail-btn-2').click(function () {
+        $('#detail-btn-1').css('background-color', '#0C356A');
+        $('#detail-btn-2').css('background-color', '#FFC436');
+        $('#detail-btn-3').css('background-color', '#0C356A');
+        $('#detail-btn-1').css('color', 'white');
+        $('#detail-btn-2').css('color', '#0C356A');
+        $('#detail-btn-3').css('color', 'white');
+        $('#detail-1').css('display', 'none');
+        $('#detail-2').css('display', 'block');
+        $('#detail-3').css('display', 'none');
+    });
+
+    $('#detail-btn-3').click(function () {
+        $('#detail-btn-1').css('background-color', '#0C356A');
+        $('#detail-btn-2').css('background-color', '#0C356A');
+        $('#detail-btn-3').css('background-color', '#FFC436');
+        $('#detail-btn-1').css('color', 'white');
+        $('#detail-btn-2').css('color', 'white');
+        $('#detail-btn-3').css('color', '#0C356A');
+        $('#detail-1').css('display', 'none');
+        $('#detail-2').css('display', 'none');
+        $('#detail-3').css('display', 'block');
+    });
+
+    $('#main-btn-1').click(function () {
+        var offset = $("#about-me").offset();
+        $("html, body").animate({scrollTop: offset.top},400);
+    });
+
+    $('#main-btn-2').click(function () {
+        var offset = $("#skills").offset();
+        $("html, body").animate({scrollTop: offset.top},400);
+    });
+
+    $('#main-btn-3').click(function () {
+        var offset = $("#career").offset();
+        $("html, body").animate({scrollTop: offset.top},400);
+    });
+
+    $('#main-btn-4').click(function () {
+        var offset = $("#projects").offset();
+        $("html, body").animate({scrollTop: offset.top},400);
+    });
 
 </script>
 </body>
