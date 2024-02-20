@@ -27,6 +27,9 @@ public class HomeController {
     @Value("${kakao.rest.api.key}")
     private String CLIENT_ID;
 
+    @Value("${oauth.redirect.uri}")
+    private String REDIRECT_URI;
+
     /**
      * 로그인 시, session에 담긴 Member의 isTester가 true인 경우(tester또는 HEN) Model에 loginStatus true 담아서 전달
      */
@@ -42,6 +45,7 @@ public class HomeController {
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("restapikey", CLIENT_ID);
+        model.addAttribute("redirectUri", REDIRECT_URI);
         return "login/login";
     }
 
