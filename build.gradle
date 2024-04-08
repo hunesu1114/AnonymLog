@@ -44,3 +44,8 @@ test {
 	useJUnitPlatform()
 }
 
+// plain jar 파일 생성 x
+jar {
+	enabled = false
+}
+
